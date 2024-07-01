@@ -1,77 +1,80 @@
 /*******************************************************************************************
-										    Éù Ã÷
-    ±¾ÏîÄ¿´úÂë½ö¹©¸öÈËÑ§Ï°Ê¹ÓÃ£¬¿ÉÒÔ×ÔÓÉÒÆÖ²ĞŞ¸Ä£¬µ«±ØĞë±£Áô´ËÉùÃ÷ĞÅÏ¢¡£ÒÆÖ²¹ı³ÌÖĞ³öÏÖÆäËû
-	
-²»¿É¹ÀÁ¿µÄBUG£¬Ìì¼ÊÖÇÁª²»¸ºÈÎºÎÔğÈÎ¡£ÇëÎğÉÌÓÃ£¡
+											å£° æ˜
+	æœ¬é¡¹ç›®ä»£ç ä»…ä¾›ä¸ªäººå­¦ä¹ ä½¿ç”¨ï¼Œå¯ä»¥è‡ªç”±ç§»æ¤ä¿®æ”¹ï¼Œä½†å¿…é¡»ä¿ç•™æ­¤å£°æ˜ä¿¡æ¯ã€‚ç§»æ¤è¿‡ç¨‹ä¸­å‡ºç°å…¶ä»–
 
-* ³ÌĞò°æ±¾£ºV1.01
-* ³ÌĞòÈÕÆÚ£º2018-8-18
-* ³ÌĞò×÷Õß£º·ßÅ­µÄĞ¡º¢
-* °æÈ¨ËùÓĞ£ºÎ÷°²Ìì¼ÊÖÇÁªĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾
+ä¸å¯ä¼°é‡çš„BUGï¼Œå¤©é™…æ™ºè”ä¸è´Ÿä»»ä½•è´£ä»»ã€‚è¯·å‹¿å•†ç”¨ï¼
+
+* ç¨‹åºç‰ˆæœ¬ï¼šV1.01
+* ç¨‹åºæ—¥æœŸï¼š2018-8-18
+* ç¨‹åºä½œè€…ï¼šæ„¤æ€’çš„å°å­©
+* ç‰ˆæƒæ‰€æœ‰ï¼šè¥¿å®‰å¤©é™…æ™ºè”ä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸
 *******************************************************************************************/
 #include "main.h"
 #include "Kalman.h"
 
 void System_Init(void)
 {
-	NvicConfig(); //ÏµÍ³ÖĞ¶ÏÓÅÏÈ¼¶¹ÜÀí
-	LED_Init();	//ÓÃ»§Ö¸Ê¾µÆ³õÊ¼»¯
-	Delay_Init(); //ÏµÍ³ÑÓÊ±³õÊ¼»¯
-	USART_init(460800);	//µ÷ÊÔ´®¿Ú³õÊ¼»¯
-	IIC_GPIO_Init(); //Ä£ÄâIIC³õÊ¼»¯
-	TIM_Init();	//ÏµÍ³Ê±»ù³õÊ¼»¯
-	Exit_Init(); //Íâ²¿ÖĞ¶Ï³õÊ¼»¯
-	SI24R1_Init(); //SI24R1(2.4G)³õÊ¼»¯£¨ºì£©
-	MPU6050_Init(); //MPU6050³õÊ¼»¯£¨ÂÌ£© 
-	//FBM320_Init(); //FBM320³õÊ¼»¯(ÆøÑ¹¼ÆÀ¶) 
-	MOTOR_Init(); //µç»úÊä³ö³õÊ¼»¯
-	BATT_Init(); //µç³ØµçÑ¹¼ì²â³õÊ¼»¯
-	PID_ReadFlash(); //FlashÖĞµÄÊı¾İ¶ÁÈ¡
-	PidParameter_init(); //PID²ÎÊı³õÊ¼»¯
-	
+	NvicConfig();		// ç³»ç»Ÿä¸­æ–­ä¼˜å…ˆçº§ç®¡ç†
+	LED_Init();			// ç”¨æˆ·æŒ‡ç¤ºç¯åˆå§‹åŒ–
+	Delay_Init();		// ç³»ç»Ÿå»¶æ—¶åˆå§‹åŒ–
+	USART_init(460800); // è°ƒè¯•ä¸²å£åˆå§‹åŒ–
+	IIC_GPIO_Init();	// æ¨¡æ‹ŸIICåˆå§‹åŒ–
+	TIM_Init();			// ç³»ç»Ÿæ—¶åŸºåˆå§‹åŒ–
+	Exit_Init();		// å¤–éƒ¨ä¸­æ–­åˆå§‹åŒ–
+	SI24R1_Init();		// SI24R1(2.4G)åˆå§‹åŒ–ï¼ˆçº¢ï¼‰
+	MPU6050_Init();		// MPU6050åˆå§‹åŒ–ï¼ˆç»¿ï¼‰
+	// FBM320_Init(); //FBM320åˆå§‹åŒ–(æ°”å‹è®¡è“)
+	MOTOR_Init();		 // ç”µæœºè¾“å‡ºåˆå§‹åŒ–
+	BATT_Init();		 // ç”µæ± ç”µå‹æ£€æµ‹åˆå§‹åŒ–
+	PID_ReadFlash();	 // Flashä¸­çš„æ•°æ®è¯»å–
+	PidParameter_init(); // PIDå‚æ•°åˆå§‹åŒ–
+
 	Kalman_Init();
-	
-	RGB_LED_Off();	//³õÊ¼»¯¹Ø±ÕËùÓĞRGBµÆ
-	
+
+	RGB_LED_Off(); // åˆå§‹åŒ–å…³é—­æ‰€æœ‰RGBç¯
+
 	printf("System Init Finish\n");
+
+	Delay_ms(5000);
 }
+
+int16_t imu_task_count;
 
 void Task_Schedule(void)
 {
-	if(ANO_Scan) //500Hz
+	if (ANO_Scan) // 500Hz
+	{
+		ANO_Scan = 0;
+		ANO_DT_Data_Exchange(); // æ›´æ–°æ•°æ®åˆ°ä¸Šä½æœº
+	}
+	if (IMU_Scan) // 100Hz
+	{
+		IMU_Scan = 0;
+		imu_task_count++;
+		Prepare_Data();												 // è·å–å§¿æ€è§£ç®—æ‰€éœ€æ•°æ®
+		IMUupdate(&Gyr_rad, &Acc_filt, &Att_Angle);					 // å››å…ƒæ•°å§¿æ€è§£ç®—
+		Control(&Att_Angle, &Gyr_rad, &RC_Control, Airplane_Enable); // å§¿æ€æ§åˆ¶
+	}
+	if (LED_Scan) // 10Hz
+	{
+		LED_Scan = 0;
+		LED_Run();
+		if (!Airplane_Enable && Run_flag)
 		{
-			ANO_Scan = 0;
-			ANO_DT_Data_Exchange(); //¸üĞÂÊı¾İµ½ÉÏÎ»»ú
+			RGB_LED_Runing(); // é£æœºä¸Šé”çŠ¶æ€ç¯
 		}
-		if(IMU_Scan) //100Hz
-		{
-			IMU_Scan  = 0;
-			Prepare_Data(); //»ñÈ¡×ËÌ¬½âËãËùĞèÊı¾İ
-			IMUupdate(&Gyr_rad,&Acc_filt,&Att_Angle); //ËÄÔªÊı×ËÌ¬½âËã
-			Control(&Att_Angle,&Gyr_rad,&RC_Control,Airplane_Enable); //×ËÌ¬¿ØÖÆ
-		}
-		if(LED_Scan) //10Hz
-		{
-			LED_Scan = 0;
-			LED_Run();
-			if(!Airplane_Enable&&Run_flag)
-			{
-				RGB_LED_Runing(); //·É»úÉÏËø×´Ì¬µÆ
-			}
-			BATT_Alarm_LED(); //µç³ØµÍµçÑ¹±¨¾¯	  
-		}
-		if(IRQ_Scan) //5Hz
-		{
-			IRQ_Scan = 0;
-			SI24R1_SingalCheck(); //2.4GÍ¨ĞÅ¼ì²â
-			SendToRemote(); //·¢ËÍÊı¾İ¸øÒ£¿ØÆ÷
-		}
-		if(Batt_Scan) //2.5Hz
-		{
-			Batt_Scan = 0;
-			SI24R1_GetAddr(); //·ÖÅä2.4GµØÖ·
-			//LowVoltage_Alarm();	//µÍµçÁ¿±¨¾¯
-		}
+		BATT_Alarm_LED(); // ç”µæ± ä½ç”µå‹æŠ¥è­¦
+	}
+	if (IRQ_Scan) // 5Hz
+	{
+		IRQ_Scan = 0;
+		SI24R1_SingalCheck(); // 2.4Gé€šä¿¡æ£€æµ‹
+		SendToRemote();		  // å‘é€æ•°æ®ç»™é¥æ§å™¨
+	}
+	if (Batt_Scan) // 2.5Hz
+	{
+		Batt_Scan = 0;
+		SI24R1_GetAddr(); // åˆ†é…2.4Gåœ°å€
+						  // LowVoltage_Alarm();	//ä½ç”µé‡æŠ¥è­¦
+	}
 }
-
-
