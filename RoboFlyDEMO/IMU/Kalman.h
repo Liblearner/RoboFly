@@ -45,7 +45,7 @@ extern float gyroXrate,gyroYrate,accPitch,accRoll;
 
 void Kalman_Init(void);
 void Kalman_Calculate(void);
-void KalmanFilter_Init(KalmanFilter *kf);
+void KalmanFilter_Init(KalmanFilter *kf_pitch, KalmanFilter *kf_roll);
 float KalmanFilter_Update(KalmanFilter *kf, float newAngle, float newRate, float dt);
 
 #endif 

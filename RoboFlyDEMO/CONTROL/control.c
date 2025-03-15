@@ -69,8 +69,8 @@ void Control(FLOAT_ANGLE *att_in,FLOAT_XYZ *gyr_in, RC_TYPE *rc_in, uint8_t arme
 	Measure_Angle.rol = att_in->rol; 
 	Measure_Angle.pit = att_in->pit; 
 	Measure_Angle.yaw = att_in->yaw; 
-	Target_Angle.rol = (float)((rc_in->ROLL-1500)/40.0f);
-	Target_Angle.pit = (float)((rc_in->PITCH-1500)/40.0f);
+	Target_Angle.rol = (float)((rc_in->ROLL-1500)/20.0f);
+	Target_Angle.pit = (float)((rc_in->PITCH-1500)/20.0f);
 	Target_Angle.yaw = (float)((1500-rc_in->YAW)/40.0f); 
   
 	if(!SI24R1_Controlflag)
@@ -96,17 +96,17 @@ void Control(FLOAT_ANGLE *att_in,FLOAT_XYZ *gyr_in, RC_TYPE *rc_in, uint8_t arme
 	PID_Postion_Cal(&PID_YAW_Rate,Target_Angle.yaw*PID_YAW_Angle.P,gyr_in->Z*RadtoDeg); //YAW角速度环PID （输入角度，输出电机控制量）
 	
 	//动力分配（自己DIY时动力分配一定要好好研究，动力分配搞错飞机肯定飞不起来!!!）
-	if(rc_in->THROTTLE>100&&armed)//当油门大于150时和飞机解锁时动力分配才生效
+	if(rc_in->THROTTLE>180&&armed)//当油门大于180时和飞机解锁时动力分配才生效
 	{                                                                                 
-		Moto_PWM_1 = rc_in->THROTTLE - PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut - PID_YAW_Rate.OutPut; 
-		Moto_PWM_2 = rc_in->THROTTLE + PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut;  
-		Moto_PWM_3 = rc_in->THROTTLE + PID_ROL_Rate.OutPut + PID_PIT_Rate.OutPut - PID_YAW_Rate.OutPut;   
-		Moto_PWM_4 = rc_in->THROTTLE - PID_ROL_Rate.OutPut + PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut;
+		Moto_PWM_1 = rc_in->THROTTLE - PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut; 
+		Moto_PWM_2 = rc_in->THROTTLE + PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut - PID_YAW_Rate.OutPut;  
+		Moto_PWM_3 = rc_in->THROTTLE + PID_ROL_Rate.OutPut + PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut;   
+		Moto_PWM_4 = rc_in->THROTTLE - PID_ROL_Rate.OutPut + PID_PIT_Rate.OutPut - PID_YAW_Rate.OutPut;
 
-//		Moto_PWM_1 = rc_in->THROTTLE - PID_ROL_Rate.OutPut; 
-//		Moto_PWM_2 = rc_in->THROTTLE + PID_ROL_Rate.OutPut;  
-//		Moto_PWM_3 = rc_in->THROTTLE + PID_ROL_Rate.OutPut;   
-//		Moto_PWM_4 = rc_in->THROTTLE - PID_ROL_Rate.OutPut;
+//		Moto_PWM_1 = rc_in->THROTTLE - PID_ROL_Rate.OutPut- PID_PIT_Rate.OutPut; 
+//		Moto_PWM_2 = rc_in->THROTTLE + PID_ROL_Rate.OutPut- PID_PIT_Rate.OutPut;  
+//		Moto_PWM_3 = rc_in->THROTTLE + PID_ROL_Rate.OutPut+ PID_PIT_Rate.OutPut;   
+//		Moto_PWM_4 = rc_in->THROTTLE - PID_ROL_Rate.OutPut+ PID_PIT_Rate.OutPut;
 //		Moto_PWM_1 = rc_in->THROTTLE ; 
 //		Moto_PWM_2 = rc_in->THROTTLE ;  
 //		Moto_PWM_3 = rc_in->THROTTLE ;   

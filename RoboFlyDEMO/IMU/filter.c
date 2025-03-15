@@ -220,9 +220,37 @@ void Aver_FilterXYZ(INT16_XYZ *acc,FLOAT_XYZ *Acc_filt,uint8_t n)
 	static int32_t bufax[N],bufay[N],bufaz[N];
 	static uint8_t cnt =0,flag = 1;
 	int32_t temp1=0,temp2=0,temp3=0,i;
+	int16_t accx_last=0,accy_last=0,accz_last=0;
+	
+	if(acc->X > 1500)
+		bufax[cnt]  += 1500;
+	else if(acc->X < -1500)
+		bufax[cnt] += -1500;
+	else
+		bufax[cnt] += acc->X;
+	
+	if(acc->Y > 1500)
+		bufay[cnt] += 1500;
+	else if(acc->Y < -1500)
+		bufay[cnt] += -1500;
+	else
+		bufay[cnt] += acc->Y;
+	
+	if(acc->Z > 1500)
+		bufaz[cnt] += 1500;
+	else if(acc->Z < -1500)
+		bufaz[cnt] += -1500;
+	else
+		bufaz[cnt] += acc->Z;
+	
 	bufax[cnt] = acc->X;
 	bufay[cnt] = acc->Y;
 	bufaz[cnt] = acc->Z;
+
+	accx_last = acc->X;
+	accy_last = acc->Y;
+	accz_last = acc->Z;
+	
 	cnt++;      //这个的位置必须在赋值语句后，否则bufax[0]不会被赋值
 	if(cnt<n && flag) 
 		return;   //数组填不满不计算
@@ -230,9 +258,10 @@ void Aver_FilterXYZ(INT16_XYZ *acc,FLOAT_XYZ *Acc_filt,uint8_t n)
 		flag = 0;
 	for(i=0;i<n;i++)
 	{
-		temp1 += bufax[i];
-		temp2 += bufay[i];
-		temp3 += bufaz[i];
+
+			temp1 += bufax[i];
+   		temp2 += bufay[i];
+			temp3 += bufaz[i];
 	}
 	 if(cnt>=n)  cnt = 0;
 	 Acc_filt->X  = temp1/n;

@@ -16,8 +16,8 @@
 #include "control.h"
 #include "Kalman.h"
 
-#define Kp_New 0.9f			 // 互补滤波当前数据的权重
-#define Kp_Old 0.1f			 // 互补滤波历史数据的权重
+#define Kp_New 0.1f			 // 互补滤波当前数据的权重
+#define Kp_Old 0.9f			 // 互补滤波历史数据的权重
 #define Acc_Gain 0.0001220f	 // 加速度变成G (初始化加速度满量程-+4g LSBa = 2*4/65535.0)
 #define Gyro_Gain 0.0609756f // 角速度变成度 (初始化陀螺仪满量程+-2000 LSBg = 2*2000/65535.0)
 #define Gyro_Gr 0.0010641f	 // 角速度变成弧度(3.1415/180 * LSBg)
@@ -56,17 +56,17 @@ void Prepare_Data(void)
 {
 	static uint8_t IIR_mode = 1;
 
-	MPU6050_Read();	  // 触发读取 ，立即返回
+	MPU6050_Read();	  // 触发读取，立即返回
 	MPU6050_Offset(); // 对MPU6050进行处理，减去零偏。如果没有计算零偏就计算零偏
 
-	//	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
-	// Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,10);//对加速度原始数据进行滑动窗口滤波
-	// SortAver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,12);//对加速度原始数据进行去极值滑动窗口滤波
+//	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
+	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
+//	SortAver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,12);//对加速度原始数据进行去极值滑动窗口滤波
 
 	// 加速度AD值 转换成 米/平方秒
-	Acc_filtold.X = (float)MPU6050_ACC_RAW.X * Acc_Gain * G;
-	Acc_filtold.Y = (float)MPU6050_ACC_RAW.Y * Acc_Gain * G;
-	Acc_filtold.Z = (float)MPU6050_ACC_RAW.Z * Acc_Gain * G;
+	Acc_filtold.X = (float)Acc_filt.X * Acc_Gain * G;
+	Acc_filtold.Y = (float)Acc_filt.Y * Acc_Gain * G;
+	Acc_filtold.Z = (float)Acc_filt.Z * Acc_Gain * G;
 	//	printf("ax=%0.2f ay=%0.2f az=%0.2f\r\n",Acc_filt.X,Acc_filt.Y,Acc_filt.Z);
 
 	// 陀螺仪AD值 转换成 弧度/秒
@@ -74,21 +74,22 @@ void Prepare_Data(void)
 	Gyr_rad.Y = (float)MPU6050_GYRO_RAW.Y * Gyro_Gr;
 	Gyr_rad.Z = (float)MPU6050_GYRO_RAW.Z * Gyro_Gr;
 
+	//互补滤波
 	if (IIR_mode)
 	{
 		Acc_filt.X = Acc_filt.X * Kp_New + Acc_filtold.X * Kp_Old;
 		Acc_filt.Y = Acc_filt.Y * Kp_New + Acc_filtold.Y * Kp_Old;
 		Acc_filt.Z = Acc_filt.Z * Kp_New + Acc_filtold.Z * Kp_Old;
-		//		Gyr_rad.X = Gyr_rad.X * Kp_New + Gyr_radold.X * Kp_Old;
-		//		Gyr_rad.Y = Gyr_rad.Y * Kp_New + Gyr_radold.Y * Kp_Old;
-		//		Gyr_rad.Z = Gyr_rad.Z * Kp_New + Gyr_radold.Z * Kp_Old;
+				Gyr_rad.X = Gyr_rad.X * Kp_New + Gyr_radold.X * Kp_Old;
+				Gyr_rad.Y = Gyr_rad.Y * Kp_New + Gyr_radold.Y * Kp_Old;
+				Gyr_rad.Z = Gyr_rad.Z * Kp_New + Gyr_radold.Z * Kp_Old;
 
-		// Acc_filtold.X = Acc_filt.X;
-		// Acc_filtold.Y = Acc_filt.Y;
-		// Acc_filtold.Z = Acc_filt.Z;
-		//		Gyr_radold.X = Gyr_rad.X;
-		//		Gyr_radold.Y = Gyr_rad.Y;
-		//		Gyr_radold.Z = Gyr_rad.Z;
+		Acc_filtold.X = Acc_filt.X;
+		Acc_filtold.Y = Acc_filt.Y;
+		Acc_filtold.Z = Acc_filt.Z;
+				Gyr_radold.X = Gyr_rad.X;
+				Gyr_radold.Y = Gyr_rad.Y;
+				Gyr_radold.Z = Gyr_rad.Z;
 	}
 	accb[0] = Acc_filt.X;
 	accb[1] = Acc_filt.Y;
@@ -200,9 +201,9 @@ void IMUupdate(FLOAT_XYZ *Gyr_rad, FLOAT_XYZ *Acc_filt, FLOAT_ANGLE *Att_Angle)
 	Att_Angle->rol = asinf(2.f * (q1q3 - q0q2)) * 57.3f;								 // roll(负号要注意)
 	Att_Angle->pit = atan2f(2.f * q2q3 + 2.f * q0q1, q0q0 - q1q1 - q2q2 + q3q3) * 57.3f; // pitch
 
-	//  Kalman_Calculate();
-	//	Att_Angle->rol = roll;
-	//	Att_Angle->pit = pitch;
+	Kalman_Calculate();
+	Att_Angle->rol = roll;
+	Att_Angle->pit = pitch;
 
 	for (i = 0; i < 9; i++)
 	{

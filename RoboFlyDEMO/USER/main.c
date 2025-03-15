@@ -14,6 +14,7 @@
 int main(void)
 {
 	System_Init(); //系统初始化
+	Delay_ms(5000);
 	while(1)
 	{
 		Task_Schedule(); //任务调度
