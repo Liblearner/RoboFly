@@ -18,7 +18,11 @@ KalmanFilter kf_pitch; 														// 翻滚角
 KalmanFilter kf_roll;													    // 俯仰角
 int16_t AccX, AccY, AccZ, GYROX, GYROY, GYROZ;
 float gyroXrate,gyroYrate,accPitch,accRoll;
-float pitch,roll;
+
+/* 全局，六轴与解算角度 */
+extern float accb[3];
+extern FLOAT_ANGLE Gyr_rad;
+extern FLOAT_ANGLE Att_Angle;
 
 /*
 @功能：卡尔曼滤波(底层端)驱动初始化
@@ -27,7 +31,7 @@ float pitch,roll;
 */
 void KalmanFilter_Init(KalmanFilter *kf_pitch, KalmanFilter *kf_roll) {
     
-	  kf_roll->Q_angle = 0.001f;
+	kf_roll->Q_angle = 0.001f;
     kf_roll->Q_bias = 0.003f;
     kf_roll->R_measure = 0.03f;
 
@@ -40,9 +44,9 @@ void KalmanFilter_Init(KalmanFilter *kf_pitch, KalmanFilter *kf_roll) {
     kf_roll->P[1][1] = 0.0f;
 	
 	//实测发现pitch的噪声很大
-	  kf_pitch->Q_angle = 0.001f;
+	kf_pitch->Q_angle = 0.001f;
     kf_pitch->Q_bias = 0.003f;
-    kf_pitch->R_measure = 8.0f;
+    kf_pitch->R_measure = 10.0f;
 
     kf_pitch->angle = 0.0f;
     kf_pitch->bias = 0.0f; 
@@ -78,7 +82,8 @@ float KalmanFilter_Update(KalmanFilter *kf, float newAngle, float newRate, float
 
     //测量值与预测值之间的残差，newAngle为测量值，angle是预测值
     float y = newAngle - kf->angle;
-    //更新角度估计值
+
+    //更新模型预测用的角度估计值与参数
     kf->angle += K[0] * y;
     kf->bias += K[1] * y;
     
@@ -111,30 +116,11 @@ void Kalman_Init()
 */
 void Kalman_Calculate()
 {
-    //获取原始数据
-    MPU6050_AccRead(&AccX, &AccY, &AccZ);
-    MPU6050_GyroRead(&GYROX, &GYROY, &GYROZ);
-
-    gyroXrate = GYROX / 131.0;
-	gyroYrate = GYROY / 131.0;
-
-    //根据测量值计算得到的系统状态，角度
-	accPitch = atan2f(AccY, AccZ) * 180 / 3.14159265358979323846;
-	accRoll = atan2f(AccX, AccZ) * 180 / 3.14159265358979323846;
+    // Gyro_rad的单位为弧度/秒
+    // Gyr_rad单位为弧度/秒
+    // gyroXrate = Gyr_rad.X / 131.0;
+	// gyroYrate = Gyr_rad.Y / 131.0;
     //KF更新
-	pitch = KalmanFilter_Update(&kf_pitch, accPitch, gyroYrate, 0.01);
-	roll = KalmanFilter_Update(&kf_roll, accRoll, gyroXrate, 0.01);
-
-
-/*
-		MPU6050_GetData(&AccX, &AccY, &AccZ, &GYROX, &GYROY, &GYROZ);
-
-		gyroXrate = GYROX / 131.0;
-		gyroYrate = GYROY / 131.0;
-
-		accPitch = atan2f(AccY, AccZ) * 180 / 3.14159265358979323846;
-		accRoll = atan2f(AccX, AccZ) * 180 / 3.14159265358979323846;
-		pitch = KalmanFilter_Update(&kf_pitch, accPitch, gyroYrate, 0.01);
-		roll = KalmanFilter_Update(&kf_roll, accRoll, gyroXrate, 0.01);
-        */
+	Att_Angle.pit = KalmanFilter_Update(&kf_pitch, Att_Angle.pit, Gyr_rad.X, 0.01);
+	Att_Angle.rol = KalmanFilter_Update(&kf_roll,  Att_Angle.rol, Gyr_rad.Y, 0.01);
 }

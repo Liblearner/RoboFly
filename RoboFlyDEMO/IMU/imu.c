@@ -16,8 +16,8 @@
 #include "control.h"
 #include "Kalman.h"
 
-#define Kp_New 0.1f			 // 互补滤波当前数据的权重
-#define Kp_Old 0.9f			 // 互补滤波历史数据的权重
+#define Kp_New 0.5f			 // 互补滤波当前数据的权重
+#define Kp_Old 0.5f			 // 互补滤波历史数据的权重
 #define Acc_Gain 0.0001220f	 // 加速度变成G (初始化加速度满量程-+4g LSBa = 2*4/65535.0)
 #define Gyro_Gain 0.0609756f // 角速度变成度 (初始化陀螺仪满量程+-2000 LSBg = 2*2000/65535.0)
 #define Gyro_Gr 0.0010641f	 // 角速度变成弧度(3.1415/180 * LSBg)
@@ -27,6 +27,7 @@ FLOAT_XYZ Gyr_rad, Gyr_radold;			   // 把陀螺仪的各通道读出的数据�
 FLOAT_XYZ Acc_filt, Gry_filt, Acc_filtold; // 滤波后的各通道数据
 float accb[3], DCMgb[3][3];				   // 方向余弦阵（将 惯性坐标系 转化为 机体坐标系）
 uint8_t AccbUpdate = 0;
+extern RC_TYPE RC_Control;
 
 /****************************************************************************************************
  * 函  数：static float invSqrt(float x)
@@ -59,9 +60,12 @@ void Prepare_Data(void)
 	MPU6050_Read();	  // 触发读取，立即返回
 	MPU6050_Offset(); // 对MPU6050进行处理，减去零偏。如果没有计算零偏就计算零偏
 
+	//这里是否考虑换成低通的FIR或者IIR？
 //	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
-	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
-//	SortAver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,12);//对加速度原始数据进行去极值滑动窗口滤波
+//	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
+	SortAver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,12);//对加速度原始数据进行去极值滑动窗口滤波
+
+	//角速度不需要滤波？
 
 	// 加速度AD值 转换成 米/平方秒
 	Acc_filtold.X = (float)Acc_filt.X * Acc_Gain * G;
@@ -202,8 +206,15 @@ void IMUupdate(FLOAT_XYZ *Gyr_rad, FLOAT_XYZ *Acc_filt, FLOAT_ANGLE *Att_Angle)
 	Att_Angle->pit = atan2f(2.f * q2q3 + 2.f * q0q1, q0q0 - q1q1 - q2q2 + q3q3) * 57.3f; // pitch
 
 	Kalman_Calculate();
-	Att_Angle->rol = roll;
-	Att_Angle->pit = pitch;
+
+	//油门直接补偿
+	// if(RC_Control.THROTTLE>150 && RC_Control.THROTTLE<=200)
+	// 	Att_Angle->pit += 9.0;
+	// if(RC_Control.THROTTLE>200 && RC_Control.THROTTLE<=400)
+	// 	Att_Angle->pit += 20.0;
+	// if(RC_Control.THROTTLE>=400 && RC_Control.THROTTLE<600)
+	// 	Att_Angle->pit += 40.0;
+
 
 	for (i = 0; i < 9; i++)
 	{

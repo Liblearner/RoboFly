@@ -202,7 +202,7 @@ void MPU6050_Init(void)
 	MPU6050_WriteByte(MPU6050_RA_INT_ENABLE, 0x00);			  // 禁止中断
 	MPU6050_WriteByte(MPU6050_RA_GYRO_CONFIG, 0x18);		  // 陀螺仪满量程+-2000度/秒 (最低分辨率 = 2^15/2000 = 16.4LSB/度/秒
 	MPU6050_WriteByte(MPU6050_RA_ACCEL_CONFIG, 0x08);		  // 加速度满量程+-4g   (最低分辨率 = 2^15/4g = 8196LSB/g )
-	MPU6050_WriteByte(MPU6050_RA_CONFIG, MPU6050_DLPF_BW_5); // 设置陀螺的输出为1kHZ,DLPF=20Hz
+	MPU6050_WriteByte(MPU6050_RA_CONFIG, MPU6050_DLPF_BW_20); // 设置陀螺的输出为1kHZ,DLPF=20Hz
 	MPU6050_WriteByte(MPU6050_RA_SMPLRT_DIV, 0x00);			  // 采样分频 (采样频率 = 陀螺仪输出频率 / (1+DIV)，采样频率1000hz）
 	MPU6050_WriteByte(MPU6050_RA_INT_PIN_CFG, 0x02);		  // MPU 可直接访问MPU6050辅助I2C
 }
