@@ -21,7 +21,7 @@ float gyroXrate,gyroYrate,accPitch,accRoll;
 
 /* 全局，六轴与解算角度 */
 extern float accb[3];
-extern FLOAT_ANGLE Gyr_rad;
+extern FLOAT_XYZ Gyr_rad;
 extern FLOAT_ANGLE Att_Angle;
 
 /*

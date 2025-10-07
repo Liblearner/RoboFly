@@ -55,7 +55,7 @@ static float invSqrt(float x)
  **********************************************************************************************************/
 void Prepare_Data(void)
 {
-	static uint8_t IIR_mode = 1;
+	static uint8_t IIR_mode = 0;
 
 	MPU6050_Read();	  // 触发读取，立即返回
 	MPU6050_Offset(); // 对MPU6050进行处理，减去零偏。如果没有计算零偏就计算零偏
@@ -63,7 +63,7 @@ void Prepare_Data(void)
 	//这里是否考虑换成低通的FIR或者IIR？
 //	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
 //	Aver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行滑动窗口滤波
-	SortAver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,12);//对加速度原始数据进行去极值滑动窗口滤波
+	SortAver_FilterXYZ(&MPU6050_ACC_RAW,&Acc_filt,20);//对加速度原始数据进行去极值滑动窗口滤波
 
 	//角速度不需要滤波？
 
@@ -114,9 +114,9 @@ void Prepare_Data(void)
  * 备  注：求解四元数和欧拉角都在此函数中完成
  **********************************************************************************************************/
 // kp=ki=0 就是完全相信陀螺仪
-#define Kp 1.50f	 // proportional gain governs rate of convergence to accelerometer/magnetometer
+#define Kp 0.0f	 // proportional gain governs rate of convergence to accelerometer/magnetometer
 					 // 比例增益控制加速度计，磁力计的收敛速率
-#define Ki 0.005f	 // integral gain governs rate of convergence of gyroscope biases
+#define Ki 0.00f	 // integral gain governs rate of convergence of gyroscope biases
 					 // 积分增益控制陀螺偏差的收敛速度
 #define halfT 0.005f // half the sample period 采样周期的一半
 
@@ -189,23 +189,23 @@ void IMUupdate(FLOAT_XYZ *Gyr_rad, FLOAT_XYZ *Acc_filt, FLOAT_ANGLE *Att_Angle)
 	q3 = q3 * norm;
 
 	// 矩阵R 将惯性坐标系(n)转换到机体坐标系(b)
-	matrix[0] = q0q0 + q1q1 - q2q2 - q3q3; // 11(前列后行)
+	matrix[0] = 1.f - q2q2 - q3q3; // 11(前列后行)
 	matrix[1] = 2.f * (q1q2 + q0q3);	   // 12
 	matrix[2] = 2.f * (q1q3 - q0q2);	   // 13
 	matrix[3] = 2.f * (q1q2 - q0q3);	   // 21
-	matrix[4] = q0q0 - q1q1 + q2q2 - q3q3; // 22
+	matrix[4] = 1.f - q1q1 - q3q3; // 22
 	matrix[5] = 2.f * (q2q3 + q0q1);	   // 23
 	matrix[6] = 2.f * (q1q3 + q0q2);	   // 31
 	matrix[7] = 2.f * (q2q3 - q0q1);	   // 32
-	matrix[8] = q0q0 - q1q1 - q2q2 + q3q3; // 33
+	matrix[8] = 1.f - q1q1 - q2q2; // 33
 
 	// 四元数转换成欧拉角(Z->Y->X)
-	Att_Angle->yaw += Gyr_rad->Z * RadtoDeg * 0.01f;
-	//	Att_Angle->yaw = atan2(2.f * (q1q2 + q0q3), q0q0 + q1q1 - q2q2 - q3q3)* 57.3f; // yaw
-	Att_Angle->rol = asinf(2.f * (q1q3 - q0q2)) * 57.3f;								 // roll(负号要注意)
-	Att_Angle->pit = atan2f(2.f * q2q3 + 2.f * q0q1, q0q0 - q1q1 - q2q2 + q3q3) * 57.3f; // pitch
+//	Att_Angle->yaw += Gyr_rad->Z * RadtoDeg * 0.01f;
+	Att_Angle->yaw = atan2(2.f * (q1q2 + q0q3), 1.f - q2q2 - q3q3)* 57.3f; // yaw
+	Att_Angle->rol = asinf(2.f * (q0q2 - q1q3)) * 57.3f;								 // roll(负号要注意)
+	Att_Angle->pit = atan2f(2.f * q2q3 + 2.f * q0q1, 1.f - q1q1 - q2q2) * 57.3f; // pitch
 
-	Kalman_Calculate();
+//	Kalman_Calculate();
 
 	//油门直接补偿
 	// if(RC_Control.THROTTLE>150 && RC_Control.THROTTLE<=200)

@@ -29,16 +29,17 @@ void System_Init(void)
 	PID_ReadFlash();	 // Flash中的数据读取
 	PidParameter_init(); // PID参数初始化
 
-	Kalman_Init();
+//	Kalman_Init();
 
 	RGB_LED_Off(); // 初始化关闭所有RGB灯
 
 	printf("System Init Finish\n");
 
-	Delay_ms(5000);
+	Delay_ms(1000);
 }
 
 int16_t imu_task_count;
+int time=0;
 
 void Task_Schedule(void)
 {
@@ -49,11 +50,13 @@ void Task_Schedule(void)
 	}
 	if (IMU_Scan) // 100Hz
 	{
+		time=1;
 		IMU_Scan = 0;
 		imu_task_count++;
 		Prepare_Data();												 // 获取姿态解算所需数据
 		IMUupdate(&Gyr_rad, &Acc_filt, &Att_Angle);					 // 四元数姿态解算
 		Control(&Att_Angle, &Gyr_rad, &RC_Control, Airplane_Enable); // 姿态控制
+		time=0;
 	}
 	if (LED_Scan) // 10Hz
 	{
