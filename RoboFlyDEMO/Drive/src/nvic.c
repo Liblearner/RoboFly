@@ -1,22 +1,22 @@
 /*******************************************************************************************
-										    иЫ цВ
-    ╠╬оНд©╢ЗбК╫Ж╧╘╦Жхкя╖о╟й╧сцё╛©иртвтсирфж╡пч╦дё╛╣╚╠ьпК╠ёаТ╢киЫцВпео╒║ёрфж╡╧ЩЁлжпЁЖожфДкШ
+										    О©╫О©╫ О©╫О©╫
+    О©╫О©╫О©╫О©╫д©О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫я╖о╟й╧О©╫цёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ж╡О©╫ч╦дёО©╫О©╫О©╫О©╫О©╫О©╫К╠ёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫О©╫ж╡О©╫О©╫О©╫О©╫О©╫пЁО©╫О©╫О©╫О©╫О©╫О©╫О©╫
 	
-╡╩©и╧юа©╣дBUGё╛лЛ╪йжга╙╡╩╦╨хн╨нтПхн║ёгКнПилсцё║
+О©╫О©╫О©╫и╧О©╫О©╫О©╫О©╫О©╫BUGО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫н╨О©╫О©╫О©╫О©╫н║О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫цёО©╫
 
-* ЁлпР╟Ф╠╬ё╨V1.01
-* ЁлпРхуфзё╨2018-8-18
-* ЁлпРвВуъё╨╥ъе╜╣дп║╨╒
-* ╟Фх╗кЫспё╨нВ╟╡лЛ╪йжга╙пео╒╪╪йУспоч╧╚к╬
+* О©╫О©╫О©╫О©╫Ф╠╬О©╫О©╫V1.01
+* О©╫О©╫О©╫О©╫О©╫О©╫О©╫зёО©╫2018-8-18
+* О©╫О©╫О©╫О©╫О©╫О©╫О©╫ъёО©╫О©╫О©╫е╜О©╫О©╫п║О©╫О©╫
+* О©╫О©╫х╗О©╫О©╫О©╫пёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫О©╫О©╫О©╫О©╫ч╧О©╫к╬
 *******************************************************************************************/
 #include "stm32f10x.h"
 
 /*****************************************************************************
-* ╨╞  йЩё╨void NvicConfig(void)
-* ╧╕  дэё╨еДжц╧╓ЁлжпкЫспжп╤о╣дсеох╪╤
-* ╡н  йЩё╨нч
-* ╥╣╩ьж╣ё╨нч
-* ╠╦  в╒ё╨╢ксеох╪╤жп╤о╡╩р╙кФ╠Ц╦Э╦де╤
+* О©╫О©╫  О©╫О©╫О©╫О©╫void NvicConfig(void)
+* О©╫О©╫  О©╫эёО©╫О©╫О©╫О©╫ц╧О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╤о╣О©╫О©╫О©╫О©╫х╪О©╫
+* О©╫О©╫  О©╫О©╫О©╫О©╫О©╫О©╫
+* О©╫О©╫О©╫О©╫ж╣О©╫О©╫О©╫О©╫
+* О©╫О©╫  в╒О©╫О©╫О©╫О©╫О©╫О©╫О©╫х╪О©╫О©╫п╤о╡О©╫р╙О©╫О©╫О©╫О©╫О©╫О©╫е╤
 *****************************************************************************/
 void NvicConfig(void)
 {
@@ -24,22 +24,22 @@ void NvicConfig(void)
 	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	
-	NVIC_InitStruct.NVIC_IRQChannel=TIM4_IRQn;   //TIM4жп╤ом╗╣ю
-	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=1;   //гюу╪сеох╪╤0
-	NVIC_InitStruct.NVIC_IRQChannelSubPriority=1;   //вссеох╪╤1
-	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;   //й╧дэTIM4жп╤ом╗╣ю
-	NVIC_Init(&NVIC_InitStruct);   //жп╤осеох╪╤ЁУй╪╩╞╨╞йЩ
+	NVIC_InitStruct.NVIC_IRQChannel=TIM4_IRQn;   //TIM4О©╫п╤О©╫м╗О©╫О©╫
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=1;   //О©╫О©╫у╪О©╫О©╫О©╫х╪О©╫0
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority=1;   //О©╫О©╫О©╫О©╫О©╫х╪О©╫1
+	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;   //й╧О©╫О©╫TIM4О©╫п╤О©╫м╗О©╫О©╫
+	NVIC_Init(&NVIC_InitStruct);   //О©╫п╤О©╫О©╫О©╫О©╫х╪О©╫О©╫О©╫й╪О©╫О©╫О©╫О©╫О©╫О©╫
 	
-	NVIC_InitStruct.NVIC_IRQChannel=USART1_IRQn;  //USART1жп╤ом╗╣ю
+	NVIC_InitStruct.NVIC_IRQChannel=USART1_IRQn;  //USART1О©╫п╤О©╫м╗О©╫О©╫
 	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=2;
 	NVIC_InitStruct.NVIC_IRQChannelSubPriority=1;
 	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;
 	NVIC_Init(&NVIC_InitStruct);
 	
-	NVIC_InitStruct.NVIC_IRQChannel=EXTI2_IRQn;   //еДжцмБ╡©жп╤ом╗╣ю
-	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=2;   //иХжцгюу╪сеох╪╤н╙0
-	NVIC_InitStruct.NVIC_IRQChannelSubPriority=2;   //иХжцвссеох╪╤н╙1
-	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;   //й╧дэмБ╡©жп╤ом╗╣ю
-	NVIC_Init(&NVIC_InitStruct);   //жп╤осеох╪╤ЁУй╪╩╞╨╞йЩ
+	NVIC_InitStruct.NVIC_IRQChannel=EXTI2_IRQn;   //О©╫О©╫О©╫О©╫О©╫Б╡©О©╫п╤О©╫м╗О©╫О©╫
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=2;   //О©╫О©╫О©╫О©╫О©╫О©╫у╪О©╫О©╫О©╫х╪О©╫н╙0
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority=2;   //О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫х╪О©╫н╙1
+	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;   //й╧О©╫О©╫О©╫Б╡©О©╫п╤О©╫м╗О©╫О©╫
+	NVIC_Init(&NVIC_InitStruct);   //О©╫п╤О©╫О©╫О©╫О©╫х╪О©╫О©╫О©╫й╪О©╫О©╫О©╫О©╫О©╫О©╫
 }
 
