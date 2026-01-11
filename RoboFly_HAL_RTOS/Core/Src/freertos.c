@@ -102,11 +102,18 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  // osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  // defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  osThreadDef(controlTask, Task_Control, osPriorityHigh, 0, 512);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  osThreadDef(commTask, Task_Comms, osPriorityNormal, 0, 256);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  osThreadDef(statusTask, Task_Status, osPriorityLow, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -131,6 +138,44 @@ void StartDefaultTask(void const * argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void Task_Control(void *argument)
+{
+  /* USER CODE BEGIN Task_Control */
+  /* Infinite loop */
+  for(;;)
+  {
+    // Control logic here
 
+    osDelay(10);
+  }
+  /* USER CODE END Task_Control */
+}
+
+
+void Task_Comms()
+{
+  /* USER CODE BEGIN Task_Comms */
+  /* Infinite loop */
+  for(;;)
+  {
+    // Communication logic here
+
+    osDelay(20);
+  }
+  /* USER CODE END Task_Comms */
+}
+
+void Task_Status()
+{
+  /* USER CODE BEGIN Task_Status */
+  /* Infinite loop */
+  for(;;)
+  {
+    // Status monitoring logic here
+
+    osDelay(100);
+  }
+  /* USER CODE END Task_Status */
+}
 /* USER CODE END Application */
 
