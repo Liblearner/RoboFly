@@ -1,0 +1,384 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: askcvjba Lenovo, asdckn, LIC=EXJT4-FMPR4-KP8ZY-IVXE8-2KWDJ-ABB6Y
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.38.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+E:\Project\Robotics\RoboFly\RoboFly_HAL_RTOS\MDK-ARM\RoboFly_HAL_RTOS.uvprojx
+Project File Date:  01/12/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin'
+Build target 'RoboFly_HAL_RTOS'
+Note: source file '..\driver\src\spi.c' - object file renamed from 'RoboFly_HAL_RTOS\spi.o' to 'RoboFly_HAL_RTOS\spi_1.o'.
+Note: source file '..\driver\src\usart.c' - object file renamed from 'RoboFly_HAL_RTOS\usart.o' to 'RoboFly_HAL_RTOS\usart_1.o'.
+compiling Kalman.c...
+..\algortithm\Kalman.c(9): error:  #13: expected a file name
+  #include â€œstm32f1xx_hal.hâ€?           // Device header
+..\algortithm\Kalman.c: 0 warnings, 1 error
+compiling si24r1.c...
+..\driver\src\si24r1.c(12): error:  #13: expected a file name
+  #include â€œstm32f1xx_hal.hâ€?
+..\driver\src\si24r1.c: 0 warnings, 1 error
+compiling fbm320.c...
+..\driver\src\fbm320.c(12): error:  #13: expected a file name
+  #include â€œstm32f1xx_hal.hâ€?
+..\driver\src\fbm320.c: 0 warnings, 1 error
+compiling iic.c...
+..\driver\src\iic.c(12): error:  #13: expected a file name
+  #include â€œstm32f1xx_hal.hâ€?
+..\driver\src\iic.c: 0 warnings, 1 error
+compiling usart.c...
+..\driver\src\usart.c(27): error:  #20: identifier "USART_InitTypeDef" is undefined
+  	USART_InitTypeDef USART_InitStruct;   //ï¿½ï¿½ï¿½å´®ï¿½Ú½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\usart.c(29): warning:  #223-D: function "RCC_APB2PeriphClockCmd" declared implicitly
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_USART1,ENABLE);   //Ê¹ï¿½ï¿½GPIOAï¿½ï¿½USART1ï¿½ï¿½Ê±ï¿½ï¿½
+..\driver\src\usart.c(29): error:  #20: identifier "RCC_APB2Periph_GPIOA" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_USART1,ENABLE);   //Ê¹ï¿½ï¿½GPIOAï¿½ï¿½USART1ï¿½ï¿½Ê±ï¿½ï¿½
+..\driver\src\usart.c(29): error:  #20: identifier "RCC_APB2Periph_USART1" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_USART1,ENABLE);   //Ê¹ï¿½ï¿½GPIOAï¿½ï¿½USART1ï¿½ï¿½Ê±ï¿½ï¿½
+..\driver\src\usart.c(31): error:  #136: struct "<unnamed>"  has no field "GPIO_Pin"
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_9;   //ï¿½ï¿½ï¿½ï¿½TXï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(31): error:  #20: identifier "GPIO_Pin_9" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_9;   //ï¿½ï¿½ï¿½ï¿½TXï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(32): error:  #136: struct "<unnamed>"  has no field "GPIO_Mode"
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AF_PP;   //ï¿½ï¿½ï¿½ï¿½PA9Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\usart.c(32): error:  #20: identifier "GPIO_Mode_AF_PP" is undefined
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AF_PP;   //ï¿½ï¿½ï¿½ï¿½PA9Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\usart.c(33): error:  #136: struct "<unnamed>"  has no field "GPIO_Speed"
+  	GPIO_InitStruct.GPIO_Speed=GPIO_Speed_50MHz;   //ï¿½ï¿½ï¿½ï¿½PA9ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(33): error:  #20: identifier "GPIO_Speed_50MHz" is undefined
+  	GPIO_InitStruct.GPIO_Speed=GPIO_Speed_50MHz;   //ï¿½ï¿½ï¿½ï¿½PA9ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(34): warning:  #223-D: function "GPIO_Init" declared implicitly
+  	GPIO_Init(GPIOA,&GPIO_InitStruct);   //GPIOï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(36): error:  #136: struct "<unnamed>"  has no field "GPIO_Pin"
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_10;   //ï¿½ï¿½ï¿½ï¿½RXï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(36): error:  #20: identifier "GPIO_Pin_10" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_10;   //ï¿½ï¿½ï¿½ï¿½RXï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(37): error:  #136: struct "<unnamed>"  has no field "GPIO_Mode"
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_IN_FLOATING;   //ï¿½ï¿½ï¿½ï¿½PA10Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(37): error:  #20: identifier "GPIO_Mode_IN_FLOATING" is undefined
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_IN_FLOATING;   //ï¿½ï¿½ï¿½ï¿½PA10Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(38): error:  #136: struct "<unnamed>"  has no field "GPIO_Speed"
+  	GPIO_InitStruct.GPIO_Speed=GPIO_Speed_50MHz;   //ï¿½ï¿½ï¿½ï¿½PA10ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(42): error:  #20: identifier "USART_Mode_Tx" is undefined
+  	USART_InitStruct.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;   //ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½Ä£Ê½
+..\driver\src\usart.c(42): error:  #20: identifier "USART_Mode_Rx" is undefined
+  	USART_InitStruct.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;   //ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½Ä£Ê½
+..\driver\src\usart.c(43): error:  #20: identifier "USART_Parity_No" is undefined
+  	USART_InitStruct.USART_Parity=USART_Parity_No;   //ï¿½ï¿½ï¿½ï¿½Å¼Ğ£ï¿½ï¿½
+..\driver\src\usart.c(45): error:  #20: identifier "USART_StopBits_1" is undefined
+  	USART_InitStruct.USART_StopBits=USART_StopBits_1;   //Í£Ö¹Î»1Î»
+..\driver\src\usart.c(46): error:  #20: identifier "USART_WordLength_8b" is undefined
+  	USART_InitStruct.USART_WordLength=USART_WordLength_8b;   //ï¿½Ö³ï¿½8Î»
+..\driver\src\usart.c(47): error:  #20: identifier "USART_HardwareFlowControl_None" is undefined
+  	USART_InitStruct.USART_HardwareFlowControl=USART_HardwareFlowControl_None;   //ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(48): warning:  #223-D: function "USART_Init" declared implicitly
+  	USART_Init(USART1,&USART_InitStruct);   //ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(50): warning:  #223-D: function "USART_ITConfig" declared implicitly
+  	USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);		//ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½
+..\driver\src\usart.c(50): error:  #20: identifier "USART_IT_RXNE" is undefined
+  	USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);		//ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½
+..\driver\src\usart.c(51): error:  #20: identifier "USART_IT_IDLE" is undefined
+  	USART_ITConfig(USART1,USART_IT_IDLE,ENABLE);		//ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½
+..\driver\src\usart.c(53): warning:  #223-D: function "USART_Cmd" declared implicitly
+  	USART_Cmd(USART1,ENABLE);   //Ê¹ï¿½ï¿½USART1
+..\driver\src\usart.c(65): warning:  #223-D: function "USART_SendData" declared implicitly
+  	USART_SendData(USART1,(uint8_t)ch);   //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\usart.c(66): warning:  #223-D: function "USART_GetFlagStatus" declared implicitly
+  	while(USART_GetFlagStatus(USART1,USART_FLAG_TXE) == RESET);   //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\usart.c(66): error:  #20: identifier "USART_FLAG_TXE" is undefined
+  	while(USART_GetFlagStatus(USART1,USART_FLAG_TXE) == RESET);   //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\usart.c(84): warning:  #223-D: function "USART_SendData" declared implicitly
+  		USART_SendData(USART1,*(data+i));
+..\driver\src\usart.c(85): warning:  #223-D: function "USART_GetFlagStatus" declared implicitly
+  		while(USART_GetFlagStatus(USART1,USART_FLAG_TC) == RESET);
+..\driver\src\usart.c(85): error:  #20: identifier "USART_FLAG_TC" is undefined
+  		while(USART_GetFlagStatus(USART1,USART_FLAG_TC) == RESET);
+..\driver\src\usart.c: 9 warnings, 24 errors
+compiling flash.c...
+..\driver\src\flash.c(27): error:  #20: identifier "vu32" is undefined
+  	return *(vu32*)faddr; 
+..\driver\src\flash.c(27): error:  #29: expected an expression
+  	return *(vu32*)faddr; 
+..\driver\src\flash.c(27): error:  #65: expected a ";"
+  	return *(vu32*)faddr; 
+..\driver\src\flash.c(41): error:  #20: identifier "FLASH_Status" is undefined
+  	FLASH_Status status = FLASH_COMPLETE;
+..\driver\src\flash.c(41): error:  #20: identifier "FLASH_COMPLETE" is undefined
+  	FLASH_Status status = FLASH_COMPLETE;
+..\driver\src\flash.c(45): warning:  #223-D: function "FLASH_Unlock" declared implicitly
+  	FLASH_Unlock();					 //ï¿½ï¿½ï¿½ï¿½ 
+..\driver\src\flash.c(55): warning:  #223-D: function "FLASH_ErasePage" declared implicitly
+  				status=FLASH_ErasePage(FLASH_SAVE_ADDR);
+..\driver\src\flash.c(66): warning:  #223-D: function "FLASH_ProgramWord" declared implicitly
+  			if(FLASH_ProgramWord(WriteAddr,*pBuffer)!=FLASH_COMPLETE) //Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\flash.c(75): warning:  #223-D: function "FLASH_Lock" declared implicitly
+  	FLASH_Lock(); //ï¿½ï¿½ï¿½ï¿½
+..\driver\src\flash.c: 4 warnings, 5 errors
+compiling power.c...
+..\driver\src\power.c(41): warning:  #223-D: function "RCC_APB2PeriphClockCmd" declared implicitly
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_ADC1, ENABLE); 
+..\driver\src\power.c(41): error:  #20: identifier "RCC_APB2Periph_GPIOA" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_ADC1, ENABLE); 
+..\driver\src\power.c(41): error:  #20: identifier "RCC_APB2Periph_ADC1" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_ADC1, ENABLE); 
+..\driver\src\power.c(42): warning:  #223-D: function "RCC_ADCCLKConfig" declared implicitly
+  	RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+..\driver\src\power.c(42): error:  #20: identifier "RCC_PCLK2_Div6" is undefined
+  	RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+..\driver\src\power.c(45): error:  #136: struct "<unnamed>"  has no field "GPIO_Pin"
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_1;
+..\driver\src\power.c(45): error:  #20: identifier "GPIO_Pin_1" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_1;
+..\driver\src\power.c(46): error:  #136: struct "<unnamed>"  has no field "GPIO_Mode"
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AIN; //Ä£ÄâÊäÈë
+..\driver\src\power.c(46): error:  #20: identifier "GPIO_Mode_AIN" is undefined
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AIN; //Ä£ÄâÊäÈë
+..\driver\src\power.c(47): warning:  #223-D: function "GPIO_Init" declared implicitly
+  	GPIO_Init(GPIOA, &GPIO_InitStruct);
+..\driver\src\power.c(49): error:  #136: struct "<unnamed>"  has no field "ADC_Mode"
+  	ADC_InitStruct.ADC_Mode=ADC_Mode_Independent;						//¶ÀÁ¢Ä£Ê½
+..\driver\src\power.c(49): error:  #20: identifier "ADC_Mode_Independent" is undefined
+  	ADC_InitStruct.ADC_Mode=ADC_Mode_Independent;						//¶ÀÁ¢Ä£Ê½
+..\driver\src\power.c(50): error:  #136: struct "<unnamed>"  has no field "ADC_DataAlign"
+  	ADC_InitStruct.ADC_DataAlign=ADC_DataAlign_Right;					//Êı¾İÓÒ¶ÔÆë
+..\driver\src\power.c(50): error:  #20: identifier "ADC_DataAlign_Right" is undefined
+  	ADC_InitStruct.ADC_DataAlign=ADC_DataAlign_Right;					//Êı¾İÓÒ¶ÔÆë
+..\driver\src\power.c(51): error:  #136: struct "<unnamed>"  has no field "ADC_NbrOfChannel"
+  	ADC_InitStruct.ADC_NbrOfChannel=1;									//1¸öÊı¾İÍ¨µÀ
+..\driver\src\power.c(52): error:  #136: struct "<unnamed>"  has no field "ADC_ScanConvMode"
+  	ADC_InitStruct.ADC_ScanConvMode=DISABLE;							//É¨Ãè×ª»»Ä£Ê½Ê§ÄÜ
+..\driver\src\power.c(53): error:  #136: struct "<unnamed>"  has no field "ADC_ExternalTrigConv"
+  	ADC_InitStruct.ADC_ExternalTrigConv=ADC_ExternalTrigConv_None;		//Íâ²¿´¥·¢Ê§ÄÜ
+..\driver\src\power.c(53): error:  #20: identifier "ADC_ExternalTrigConv_None" is undefined
+  	ADC_InitStruct.ADC_ExternalTrigConv=ADC_ExternalTrigConv_None;		//Íâ²¿´¥·¢Ê§ÄÜ
+..\driver\src\power.c(54): error:  #136: struct "<unnamed>"  has no field "ADC_ContinuousConvMode"
+  	ADC_InitStruct.ADC_ContinuousConvMode=DISABLE;						//Á¬Ğø×ª»»Ê§ÄÜ
+..\driver\src\power.c(55): warning:  #223-D: function "ADC_Init" declared implicitly
+  	ADC_Init(ADC1,&ADC_InitStruct);
+..\driver\src\power.c(57): warning:  #223-D: function "ADC_Cmd" declared implicitly
+  	ADC_Cmd(ADC1, ENABLE); //Ê¹ÄÜADC1
+..\driver\src\power.c(59): warning:  #223-D: function "ADC_RegularChannelConfig" declared implicitly
+  	ADC_RegularChannelConfig(ADC1,ADC_Channel_1,1,ADC_SampleTime_239Cycles5);	//¹æÔò×é×ª»»Í¨µÀ
+..\driver\src\power.c(59): error:  #20: identifier "ADC_Channel_1" is undefined
+  	ADC_RegularChannelConfig(ADC1,ADC_Channel_1,1,ADC_SampleTime_239Cycles5);	//¹æÔò×é×ª»»Í¨µÀ
+..\driver\src\power.c(59): error:  #20: identifier "ADC_SampleTime_239Cycles5" is undefined
+  	ADC_RegularChannelConfig(ADC1,ADC_Channel_1,1,ADC_SampleTime_239Cycles5);	//¹æÔò×é×ª»»Í¨µÀ
+..\driver\src\power.c(71): warning:  #223-D: function "ADC_RegularChannelConfig" declared implicitly
+  	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5);
+..\driver\src\power.c(71): error:  #20: identifier "ADC_SampleTime_239Cycles5" is undefined
+  	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5);
+..\driver\src\power.c(72): warning:  #223-D: function "ADC_SoftwareStartConvCmd" declared implicitly
+  	ADC_SoftwareStartConvCmd(ADC1,ENABLE);	//Èí¼ş´¥·¢×ª»»Ê¹ÄÜ
+..\driver\src\power.c(73): warning:  #223-D: function "ADC_GetFlagStatus" declared implicitly
+  	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC));	//µÈ´ı×ª»»½áÊø
+..\driver\src\power.c(74): warning:  #223-D: function "ADC_GetConversionValue" declared implicitly
+  	return ADC_GetConversionValue(ADC1);	//·µ»Ø×ª»»½á¹ûµÄÖµ
+..\driver\src\power.c(87): error:  #20: identifier "ADC_Channel_1" is undefined
+  	Aver_Filter((float)Get_BatteryAdc(ADC_Channel_1),&BAT.BattAdc,6); //»¬¶¯ÂË²¨µçÑ¹Öµ£¬Ìá¸ß¾«¶È
+..\driver\src\power.c: 10 warnings, 20 errors
+compiling mpu6050.c...
+..\driver\inc\MPU6050.h(4): error:  #13: expected a file name
+  #include â€œstm32f1xx_hal.hâ€?
+..\driver\src\mpu6050.c: 0 warnings, 1 error
+compiling motor.c...
+..\driver\src\motor.c(35): error:  #20: identifier "TIM_TimeBaseInitTypeDef" is undefined
+  	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;   //ï¿½ï¿½ï¿½å¶¨Ê±ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(36): error:  #20: identifier "TIM_OCInitTypeDef" is undefined
+  	TIM_OCInitTypeDef TIM_OCInitStruct;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½Ï½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(38): warning:  #223-D: function "RCC_APB2PeriphClockCmd" declared implicitly
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO,ENABLE);   //GPIOAï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(38): error:  #20: identifier "RCC_APB2Periph_GPIOA" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO,ENABLE);   //GPIOAï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(38): error:  #20: identifier "RCC_APB2Periph_GPIOB" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO,ENABLE);   //GPIOAï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(38): error:  #20: identifier "RCC_APB2Periph_AFIO" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO,ENABLE);   //GPIOAï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(39): warning:  #223-D: function "RCC_APB1PeriphClockCmd" declared implicitly
+  	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);   //Ê¹ï¿½ï¿½TIM3ï¿½ï¿½Ê±ï¿½ï¿½
+..\driver\src\motor.c(39): error:  #20: identifier "RCC_APB1Periph_TIM3" is undefined
+  	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);   //Ê¹ï¿½ï¿½TIM3ï¿½ï¿½Ê±ï¿½ï¿½
+..\driver\src\motor.c(41): error:  #136: struct "<unnamed>"  has no field "GPIO_Pin"
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_6|GPIO_Pin_7;   //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½6ï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(41): error:  #20: identifier "GPIO_Pin_6" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_6|GPIO_Pin_7;   //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½6ï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(41): error:  #20: identifier "GPIO_Pin_7" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_6|GPIO_Pin_7;   //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½6ï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(42): error:  #136: struct "<unnamed>"  has no field "GPIO_Mode"
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AF_PP;   	  //ï¿½ï¿½ï¿½ï¿½GPIOÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(42): error:  #20: identifier "GPIO_Mode_AF_PP" is undefined
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AF_PP;   	  //ï¿½ï¿½ï¿½ï¿½GPIOÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(43): error:  #136: struct "<unnamed>"  has no field "GPIO_Speed"
+  	GPIO_InitStruct.GPIO_Speed=GPIO_Speed_50MHz;  	  //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(43): error:  #20: identifier "GPIO_Speed_50MHz" is undefined
+  	GPIO_InitStruct.GPIO_Speed=GPIO_Speed_50MHz;  	  //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(44): warning:  #223-D: function "GPIO_Init" declared implicitly
+  	GPIO_Init(GPIOA,&GPIO_InitStruct);   //GPIOï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(46): error:  #136: struct "<unnamed>"  has no field "GPIO_Pin"
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_0|GPIO_Pin_1;   //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½0ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(46): error:  #20: identifier "GPIO_Pin_0" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_0|GPIO_Pin_1;   //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½0ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(46): error:  #20: identifier "GPIO_Pin_1" is undefined
+  	GPIO_InitStruct.GPIO_Pin=GPIO_Pin_0|GPIO_Pin_1;   //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½0ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(47): error:  #136: struct "<unnamed>"  has no field "GPIO_Mode"
+  	GPIO_InitStruct.GPIO_Mode=GPIO_Mode_AF_PP;   	  //ï¿½ï¿½ï¿½ï¿½GPIOÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(48): error:  #136: struct "<unnamed>"  has no field "GPIO_Speed"
+  	GPIO_InitStruct.GPIO_Speed=GPIO_Speed_50MHz;   	  //ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(53): error:  #20: identifier "TIM_CounterMode_Up" is undefined
+  	TIM_TimeBaseInitStruct.TIM_CounterMode=TIM_CounterMode_Up; //ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½Ä£Ê½
+..\driver\src\motor.c(54): error:  #20: identifier "TIM_CKD_DIV1" is undefined
+  	TIM_TimeBaseInitStruct.TIM_ClockDivision=TIM_CKD_DIV1;     //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ó·Ö¸ï¿½
+..\driver\src\motor.c(55): warning:  #223-D: function "TIM_TimeBaseInit" declared implicitly
+  	TIM_TimeBaseInit(TIM3,&TIM_TimeBaseInitStruct);   		   //ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+..\driver\src\motor.c(57): error:  #20: identifier "TIM_OCMode_PWM1" is undefined
+  	TIM_OCInitStruct.TIM_OCMode=TIM_OCMode_PWM1;   //PWMÄ£Ê½1
+..\driver\src\motor.c(59): error:  #20: identifier "TIM_OCPolarity_High" is undefined
+  	TIM_OCInitStruct.TIM_OCPolarity=TIM_OCPolarity_High;   	   //ï¿½ï¿½ï¿½ï¿½È½Ï¼ï¿½ï¿½Ôµï¿?
+..\driver\src\motor.c(60): error:  #20: identifier "TIM_OutputState_Enable" is undefined
+  	TIM_OCInitStruct.TIM_OutputState=TIM_OutputState_Enable;   //ï¿½È½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿?
+..\driver\src\motor.c(61): warning:  #223-D: function "TIM_OC1Init" declared implicitly
+  	TIM_OC1Init(TIM3,&TIM_OCInitStruct);   					   //ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(62): warning:  #223-D: function "TIM_OC1PreloadConfig" declared implicitly
+  	TIM_OC1PreloadConfig(TIM3,TIM_OCPreload_Enable);   //ï¿½ï¿½ï¿½ï¿½È½ï¿?1Ô¤×°ï¿½Ø¼Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(62): error:  #20: identifier "TIM_OCPreload_Enable" is undefined
+  	TIM_OC1PreloadConfig(TIM3,TIM_OCPreload_Enable);   //ï¿½ï¿½ï¿½ï¿½È½ï¿?1Ô¤×°ï¿½Ø¼Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(68): warning:  #223-D: function "TIM_OC2Init" declared implicitly
+  	TIM_OC2Init(TIM3,&TIM_OCInitStruct);   						//ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(69): warning:  #223-D: function "TIM_OC2PreloadConfig" declared implicitly
+  	TIM_OC2PreloadConfig(TIM3,TIM_OCPreload_Enable);   //ï¿½ï¿½ï¿½ï¿½È½ï¿?2Ô¤×°ï¿½Ø¼Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(75): warning:  #223-D: function "TIM_OC3Init" declared implicitly
+  	TIM_OC3Init(TIM3,&TIM_OCInitStruct);   						//ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(76): warning:  #223-D: function "TIM_OC3PreloadConfig" declared implicitly
+  	TIM_OC3PreloadConfig(TIM3,TIM_OCPreload_Enable);   //ï¿½ï¿½ï¿½ï¿½È½ï¿?3Ô¤×°ï¿½Ø¼Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(82): warning:  #223-D: function "TIM_OC4Init" declared implicitly
+  	TIM_OC4Init(TIM3,&TIM_OCInitStruct);   						//ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+..\driver\src\motor.c(83): warning:  #223-D: function "TIM_OC4PreloadConfig" declared implicitly
+  	TIM_OC4PreloadConfig(TIM3,TIM_OCPreload_Enable);   //ï¿½ï¿½ï¿½ï¿½È½ï¿?4Ô¤×°ï¿½Ø¼Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+..\driver\src\motor.c(85): warning:  #223-D: function "TIM_Cmd" declared implicitly
+  	TIM_Cmd(TIM3,ENABLE);   //TIM3Ê¹ï¿½ï¿½
+..\driver\src\motor.c: 13 warnings, 24 errors
+compiling spi.c...
+..\driver\src\spi.c(28): warning:  #223-D: function "RCC_APB2PeriphClockCmd" declared implicitly
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+..\driver\src\spi.c(28): error:  #20: identifier "RCC_APB2Periph_GPIOB" is undefined
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+..\driver\src\spi.c(29): warning:  #223-D: function "RCC_APB1PeriphClockCmd" declared implicitly
+  	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
+..\driver\src\spi.c(29): error:  #20: identifier "RCC_APB1Periph_SPI2" is undefined
+  	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
+..\driver\src\spi.c(32): error:  #136: struct "<unnamed>"  has no field "GPIO_Pin"
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+..\driver\src\spi.c(32): error:  #20: identifier "GPIO_Pin_13" is undefined
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+..\driver\src\spi.c(32): error:  #20: identifier "GPIO_Pin_14" is undefined
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+..\driver\src\spi.c(32): error:  #20: identifier "GPIO_Pin_15" is undefined
+  	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+..\driver\src\spi.c(33): error:  #136: struct "<unnamed>"  has no field "GPIO_Mode"
+  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+..\driver\src\spi.c(33): error:  #20: identifier "GPIO_Mode_AF_PP" is undefined
+  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+..\driver\src\spi.c(34): error:  #136: struct "<unnamed>"  has no field "GPIO_Speed"
+  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+..\driver\src\spi.c(34): error:  #20: identifier "GPIO_Speed_50MHz" is undefined
+  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+..\driver\src\spi.c(35): warning:  #223-D: function "GPIO_Init" declared implicitly
+  	GPIO_Init(GPIOB, &GPIO_InitStructure);
+..\driver\src\spi.c(37): error:  #136: struct "<unnamed>"  has no field "SPI_Mode"
+  	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;					   // é…ç½®ä¸ºä¸»æœºæ¨¡å¼?
+..\driver\src\spi.c(37): error:  #20: identifier "SPI_Mode_Master" is undefined
+  	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;					   // é…ç½®ä¸ºä¸»æœºæ¨¡å¼?
+..\driver\src\spi.c(38): error:  #136: struct "<unnamed>"  has no field "SPI_NSS"
+  	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;						   // NSSè½¯ä»¶ç®¡ç†
+..\driver\src\spi.c(38): error:  #20: identifier "SPI_NSS_Soft" is undefined
+  	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;						   // NSSè½¯ä»¶ç®¡ç†
+..\driver\src\spi.c(39): error:  #136: struct "<unnamed>"  has no field "SPI_CPHA"
+  	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;					   // ç¬¬ä¸€ä¸ªæ—¶é’Ÿæ²¿æ•è·
+..\driver\src\spi.c(39): error:  #20: identifier "SPI_CPHA_1Edge" is undefined
+  	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;					   // ç¬¬ä¸€ä¸ªæ—¶é’Ÿæ²¿æ•è·
+..\driver\src\spi.c(40): error:  #136: struct "<unnamed>"  has no field "SPI_CPOL"
+  	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;						   // ç©ºé—²çŠ¶æ€ä¸ºä½ç”µå¹?
+..\driver\src\spi.c(40): error:  #20: identifier "SPI_CPOL_Low" is undefined
+  	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;						   // ç©ºé—²çŠ¶æ€ä¸ºä½ç”µå¹?
+..\driver\src\spi.c(41): error:  #136: struct "<unnamed>"  has no field "SPI_DataSize"
+  	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;				   // 8ä½æ•°æ®å¸§
+..\driver\src\spi.c(41): error:  #20: identifier "SPI_DataSize_8b" is undefined
+  	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;				   // 8ä½æ•°æ®å¸§
+..\driver\src\spi.c(42): error:  #136: struct "<unnamed>"  has no field "SPI_BaudRatePrescaler"
+  	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8; // SPIæ³¢ç‰¹ç?8åˆ†é¢‘ 	36/8=4.5M
+..\driver\src\spi.c(42): error:  #20: identifier "SPI_BaudRatePrescaler_8" is undefined
+  	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8; // SPIæ³¢ç‰¹ç?8åˆ†é¢‘ 	36/8=4.5M
+..\driver\src\spi.c(43): error:  #136: struct "<unnamed>"  has no field "SPI_Direction"
+  	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex; // å…¨åŒå·¥æ¨¡å¼?
+..\driver\src\spi.c(43): error:  #20: identifier "SPI_Direction_2Lines_FullDuplex" is undefined
+  	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex; // å…¨åŒå·¥æ¨¡å¼?
+..\driver\src\spi.c(44): error:  #136: struct "<unnamed>"  has no field "SPI_FirstBit"
+  	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;				   // æ•°æ®é«˜ä½å…ˆè¡Œ
+..\driver\src\spi.c(44): error:  #20: identifier "SPI_FirstBit_MSB" is undefined
+  	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;				   // æ•°æ®é«˜ä½å…ˆè¡Œ
+..\driver\src\spi.c(45): error:  #136: struct "<unnamed>"  has no field "SPI_CRCPolynomial"
+  	SPI_InitStructure.SPI_CRCPolynomial = 7;						   // CRCè®¡ç®—å¤šé¡¹å¼?
+..\driver\src\spi.c(46): warning:  #223-D: function "SPI_Init" declared implicitly
+  	SPI_Init(SPI2, &SPI_InitStructure);
+..\driver\src\spi.c(48): warning:  #223-D: function "SPI_Cmd" declared implicitly
+  	SPI_Cmd(SPI2, ENABLE); // SPI2ä½¿èƒ½
+..\driver\src\spi.c(60): warning:  #223-D: function "SPI_I2S_GetFlagStatus" declared implicitly
+  	while (!SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE))
+..\driver\src\spi.c(60): error:  #20: identifier "SPI_I2S_FLAG_TXE" is undefined
+  	while (!SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE))
+..\driver\src\spi.c(62): warning:  #223-D: function "SPI_I2S_SendData" declared implicitly
+  	SPI_I2S_SendData(SPI2, data);
+..\driver\src\spi.c(64): warning:  #223-D: function "SPI_I2S_GetFlagStatus" declared implicitly
+  	while (!SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE))
+..\driver\src\spi.c(64): error:  #20: identifier "SPI_I2S_FLAG_RXNE" is undefined
+  	while (!SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE))
+..\driver\src\spi.c(66): warning:  #223-D: function "SPI_I2S_ReceiveData" declared implicitly
+  	return SPI_I2S_ReceiveData(SPI2);
+..\driver\src\spi.c: 9 warnings, 29 errors
+"RoboFly_HAL_RTOS\RoboFly_HAL_RTOS.axf" - 107 Error(s), 45 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil.STM32F1xx_DFP.2.4.1
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_RoboFly_HAL_RTOS
+  C:/Users/Lenovo/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/Lenovo/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.1/Device/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Target not created.
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>

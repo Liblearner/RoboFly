@@ -48,6 +48,9 @@
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
+osThreadId controlTaskHandle;
+osThreadId commsTaskHandle;
+osThreadId statusTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -55,6 +58,9 @@ osThreadId defaultTaskHandle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void Task_Control(void const *argument);
+void Task_Comms(void const *argument);
+void Task_Status(void const *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -107,13 +113,13 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   osThreadDef(controlTask, Task_Control, osPriorityHigh, 0, 512);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  controlTaskHandle = osThreadCreate(osThread(controlTask), NULL);
 
-  osThreadDef(commTask, Task_Comms, osPriorityNormal, 0, 256);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  osThreadDef(commsTask, Task_Comms, osPriorityNormal, 0, 256);
+  commsTaskHandle = osThreadCreate(osThread(commsTask), NULL);
 
   osThreadDef(statusTask, Task_Status, osPriorityLow, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  statusTaskHandle = osThreadCreate(osThread(statusTask), NULL);
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -138,7 +144,7 @@ void StartDefaultTask(void const * argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-void Task_Control(void *argument)
+void Task_Control(void const *argument)
 {
   /* USER CODE BEGIN Task_Control */
   /* Infinite loop */
@@ -152,7 +158,7 @@ void Task_Control(void *argument)
 }
 
 
-void Task_Comms()
+void Task_Comms(void const * argument)
 {
   /* USER CODE BEGIN Task_Comms */
   /* Infinite loop */
@@ -165,7 +171,7 @@ void Task_Comms()
   /* USER CODE END Task_Comms */
 }
 
-void Task_Status()
+void Task_Status(void const * argument)
 {
   /* USER CODE BEGIN Task_Status */
   /* Infinite loop */
