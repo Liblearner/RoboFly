@@ -14,7 +14,6 @@
 #include "stdlib.h"
 // #include "delay.h"
 #include "structconfig.h"
-#define u32 uint32_t
 
 // #define   RGB_H     GPIOB->BSRR |= GPIO_Pin_9   //���ö�ӦRGB����Ϊ �ߵ�ƽ
 // #define   RGB_L     GPIOB->BRR  |= GPIO_Pin_9	//���ö�ӦRGB����Ϊ �͵�ƽ
@@ -22,7 +21,7 @@
 #define RGB_L HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET)
 
 //������RGB��Ԫɫ����߲�������
-static u32 Run_buf[][16] = 
+static uint32_t Run_buf[][16] = 
 {
 	{0xFFA500,0,0,0,0xFFA500,0,0,0,0xFFA500,0,0,0,0xFFA500,0,0,0,},//��ɫ
 	{0x00FF00,0,0,0,0x00FF00,0,0,0,0x00FF00,0,0,0,0x00FF00,0,0,0,},//��ɫ

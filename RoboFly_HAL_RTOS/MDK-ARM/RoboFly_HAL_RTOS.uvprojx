@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\driver\inc;..\algortithm</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\driver\inc;..\algortithm;..\task</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -614,6 +614,11 @@
               <FileType>1</FileType>
               <FilePath>..\algortithm\Kalman.c</FilePath>
             </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\algortithm\pid.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -660,14 +665,34 @@
               <FilePath>..\driver\src\si24r1.c</FilePath>
             </File>
             <File>
-              <FileName>spi.c</FileName>
+              <FileName>spi_io.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\driver\src\spi.c</FilePath>
+              <FilePath>..\driver\src\spi_io.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>task</GroupName>
+          <Files>
+            <File>
+              <FileName>paramsave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\task\paramsave.c</FilePath>
             </File>
             <File>
-              <FileName>usart.c</FileName>
+              <FileName>remotedata.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\driver\src\usart.c</FilePath>
+              <FilePath>..\task\remotedata.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\task\imu.c</FilePath>
+            </File>
+            <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\task\control.c</FilePath>
             </File>
           </Files>
         </Group>

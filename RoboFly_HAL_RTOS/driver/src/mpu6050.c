@@ -12,7 +12,7 @@
 #include "stm32f1xx_hal.h"
 #include "MPU6050.h"
 #include "iic.h"
-#include "delay.h"
+//#include "delay.h"
 #include "usart.h"
 #include "led.h"
 #include "stdio.h"

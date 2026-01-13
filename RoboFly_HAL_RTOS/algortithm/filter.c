@@ -356,10 +356,10 @@ void limit_filter(float T,float hz,_lf_t *data,float in)
 ///*限幅度平均值滤波*/
 //void presssureFilter(float* in, float* out)
 //{	
-//	static u8 i=0;
+//	static uint8_t i=0;
 //	static float filter_buf[FILTER_NUM]={0.0};
 //	double filter_sum=0.0;
-//	u8 cnt=0;	
+//	uint8_t cnt=0;	
 //	float deta;
 
 //	if(filter_buf[i] == 0.0f)

@@ -1,28 +1,36 @@
 #ifndef   _IIC_H
 #define   _IIC_H
 #include "stdint.h"
+#include "stm32f1xx_hal.h"
 
-#define SCL_H         GPIOB->BSRR = GPIO_Pin_6
-#define SCL_L         GPIOB->BRR  = GPIO_Pin_6
-#define SDA_H         GPIOB->BSRR = GPIO_Pin_7 
-#define SDA_L         GPIOB->BRR  = GPIO_Pin_7
-#define SDA_read      ((GPIOB->IDR & GPIO_Pin_7)!=0)?1:0
+// GPIOæ“ä½œå®å®šä¹‰ (HALåº“æ–¹å¼)
+#define SCL_H         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET)
+#define SCL_L         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET)
+#define SDA_H         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET)
+#define SDA_L         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET)
+#define SDA_read      HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_7)
 
-void IIC_GPIO_Init(void);        //³õÊ¼»¯IICµÄIO¿Ú				 
-void IIC_Start(void);			 //·¢ËÍIIC¿ªÊ¼ĞÅºÅ
-void IIC_Stop(void);	  	  	 //·¢ËÍIICÍ£Ö¹ĞÅºÅ
-void IIC_Ack(void);				 //IIC·¢ËÍACKĞÅºÅ
-void IIC_NAck(void);			 //IIC²»·¢ËÍACKĞÅºÅ
-uint8_t IIC_WaitAck(void); 		 //IICµÈ´ıACKĞÅºÅ
+// IICå¼•è„šå®šä¹‰ (ä¾¿äºç§»æ¤)
+#define IIC_SCL_PORT        GPIOB
+#define IIC_SCL_PIN         GPIO_PIN_6
+#define IIC_SDA_PORT        GPIOB
+#define IIC_SDA_PIN         GPIO_PIN_7
 
-void IIC_SendByte(uint8_t data);  //IIC·¢ËÍÒ»¸ö×Ö½Ú
-uint8_t IIC_ReadByte(uint8_t ack);//IIC¶ÁÈ¡Ò»¸ö×Ö½Ú
+// å‡½æ•°å£°æ˜
+void IIC_GPIO_Init(void);                  // åˆå§‹åŒ–IICçš„IOå£				 
+void IIC_Start(void);                      // å‘é€IICå¼€å§‹ä¿¡å·
+void IIC_Stop(void);                       // å‘é€IICç»“æŸä¿¡å·
+void IIC_Ack(void);                        // IICå‘é€ACKä¿¡å·
+void IIC_NAck(void);                       // IICä¸å‘é€ACKä¿¡å·
+uint8_t IIC_WaitAck(void);                 // IICç­‰å¾…ACKä¿¡å·
 
-uint8_t IIC_ReadByteFromSlave(uint8_t I2C_Addr,uint8_t reg,uint8_t *buf);
+void IIC_SendByte(uint8_t data);           // IICå‘é€ä¸€ä¸ªå­—èŠ‚
+uint8_t IIC_ReadByte(uint8_t ack);         // IICè¯»å–ä¸€ä¸ªå­—èŠ‚
+
+// é«˜çº§è¯»å†™å‡½æ•°
+uint8_t IIC_ReadByteFromSlave(uint8_t I2C_Addr, uint8_t reg, uint8_t *buf);
 uint8_t IIC_ReadMultByteFromSlave(uint8_t dev, uint8_t reg, uint8_t length, uint8_t *data);
-uint8_t IIC_WriteByteToSlave(uint8_t I2C_Addr,uint8_t reg,uint8_t buf);
+uint8_t IIC_WriteByteToSlave(uint8_t I2C_Addr, uint8_t reg, uint8_t buf);
 uint8_t IIC_WriteMultByteToSlave(uint8_t dev, uint8_t reg, uint8_t length, uint8_t* data);
 
-
 #endif
-

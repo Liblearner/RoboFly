@@ -9,11 +9,11 @@
 * �������ߣ���ŭ��С��
 * ��Ȩ���У��������������Ϣ�������޹�˾
 *******************************************************************************************/
-#include “stm32f1xx_hal.h”
+#include "stm32f1xx_hal.h"
 #include "fbm320.h"
 #include "iic.h"
 #include "stdio.h"
-#include "delay.h"
+//#include "delay.h"
 #include "structconfig.h"
 #include "math.h"
 #include "led.h"

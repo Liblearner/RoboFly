@@ -1,87 +1,92 @@
 #ifndef   _SI24R1_H
 #define   _SI24R1_H
 #include "stdint.h"
+#include "stm32f1xx_hal.h"
 
-/******* SI24R1ÃüÁî *********/
-#define R_REGISTER   0X00//¶ÁÅäÖÃ¼Ä´æÆ÷
-#define W_REGISTER   0x20//Ğ´ÅäÖÃ¼Ä´æÆ÷
-#define R_RX_PAYLOAD 0X61//¶ÁRXÓĞĞ§Êı¾İ
-#define W_RX_PAYLOAD 0XA0//Ğ´TXÓĞĞ§Êı¾İ
-#define FLUSH_TX     0XE1//Çå³ıTX FIFO¼Ä´æÆ÷ Ó¦ÓÃÓÚ·¢ÉäÄ£Ê½
-#define FLUSH_RX     0XE2//Çå³ıRX FIFO¼Ä´æÆ÷ Ó¦ÓÃÓÚ½ÓÊÕÄ£Ê½
-#define REUSE_TX_PL  0XE3//´ÓĞÂÊ¹ÓÃÉÏÒ»Êı¾İ°ü
-#define NOP          0XFF
-/*******************************************************SI24R1¼Ä´æÆ÷µØÖ·*******************************************************/
-#define CONFIG       0X00 //bit0(PRIM_RX ):1½ÓÊÕÄ£Ê½ 0·¢ÉäÄ£Ê½ bit1(pwr_up):1ÉÏµç0µôµçbit3£º1 16Î»CRCĞ£Ñé 0 °ËÎ»CRCĞ£Ñé
-//bit3:CRCÊ¹ÄÜ bit4:¿ÉÆÁ±ÎÖĞ¶ÏMAX_RT bit5:¿ÉÆÁ±ÎÖĞ¶ÏTX_DS bit6¿ÉÆÁ±ÎÖĞ¶ÏRX_RD
-#define EN_AA        0X01//Ê¹ÄÜ0¡ª¡ª5Í¨µÀµÄ×Ô¶¯Ó¦´ğ¹¦ÄÜ
-#define EN_RXADDR    0X02//½ÓÊÕµØÖ·ÔÊĞí 0-5 Í¨µÀ £¬Ä¬ÈÏÍ¨µÀ0Í¨µÀ1Æô¶¯
-#define SETUP_AW     0X03//ÉèÖÃµØÖ·¿í¶È 00£ºÎŞĞ§ 01£º3×Ö½Ú 10£º×Ö½Ú 11£º5×Ö½Ú
-#define SETUP_RETR   0X04//½¨Á¢×Ô¶¯ÖØ·¢ 3:0 ×Ô¶¯ÖØ·¢¼ÆÊı 7:4 ×Ô¶¯ÖØ·¢ÑÓÊ±
-#define RF_CH        0X05//ÉäÆµÍ¨µÀ 6:0 ÉèÖÃnRF24l01¹¤×÷ÆµÂÊ
-#define RF_SETUP     0X06//ÉäÆµ¼Ä´æÆ÷ 0:µÍÔëÉù·Å´óÆ÷ÔöÒæ 2:1 ·¢Éä¹¦ÂÊ 3:´«ÊäĞ§ÂÊ
-#define STATUS       0X07//×´Ì¬¼Ä´æÆ÷ 0:TX FIFO¼Ä´æÆ÷Âú±êÖ¾ 3:1 ½ÓÊÕÊı¾İÍ¨µÀºÅ 4:´ïµ½×î´óÖØ·¢ÖĞ¶Ï
-//5£ºÊı¾İ·¢ËÍÍê³ÉÖĞ¶Ï 6£ºÊı¾İ½ÓÊÕÖĞ¶Ï
-#define MAX_TX  		         0x10  //×î´óÖØ·¢´ÎÊı
-#define TX_OK   		         0x20  //·¢ËÍÍê³É
-#define RX_OK   		         0x40  //½ÓÊÕÍê³É
-#define RX_P_NO              0x0E  //
-#define OBSERVE_TX   0X08//3:0 ÖØ·¢¼ÆÊıÆ÷(·¢ËÍĞÂÊı¾İ°üÊ±¸´Î») 7:4 Êı¾İ°ü¶ªÊ§¼ÆÊıÆ÷(Ğ´RF_CHÊ±¸´Î»)
-#define CD           0X09//ÔØ²¨¼ì²â
-#define RX_ADDR_P0   0X0A//Êı¾İÍ¨µÀ0½ÓÊÕµØÖ· £¬×î´ó³¤¶È:5×Ö½Ú(ÏÈĞ´µÍ×Ö½Ú£¬ËùĞ´×Ö½ÚÊıÁ¿ÓSETUP_AWÉè¶¨)
-#define RX_ADDR_P1   0X0B//Êı¾İÍ¨µÀ1½ÓÊÕµØÖ· £¬×î´ó³¤¶È:5×Ö½Ú(ÏÈĞ´µÍ×Ö½Ú£¬ËùĞ´×Ö½ÚÊıÁ¿ÓSETUP_AWÉè¶¨)
-#define RX_ADDR_P2   0X0C//Êı¾İÍ¨µÀ2½ÓÊÕµØÖ· ,×îµÍ×Ö½Ú¿ÉÉèÖÃ¡£¸ß×Ö½Ú²¿·Ö±ØĞëÓëRX_ADDR_P1[39:8]ÏàµÈ
-#define RX_ADDR_P3   0X0D//Êı¾İÍ¨µÀ3½ÓÊÕµØÖ· ,×îµÍ×Ö½Ú¿ÉÉèÖÃ¡£¸ß×Ö½Ú²¿·Ö±ØĞëÓëRX_ADDR_P1[39:8]ÏàµÈ
-#define RX_ADDR_P4   0X0E//Êı¾İÍ¨µÀ4½ÓÊÕµØÖ· ,×îµÍ×Ö½Ú¿ÉÉèÖÃ¡£¸ß×Ö½Ú²¿·Ö±ØĞëÓëRX_ADDR_P1[39:8]ÏàµÈ
-#define RX_ADDR_P5   0X0F//Êı¾İÍ¨µÀ5½ÓÊÕµØÖ· ,×îµÍ×Ö½Ú¿ÉÉèÖÃ¡£¸ß×Ö½Ú²¿·Ö±ØĞëÓëRX_ADDR_P1[39:8]ÏàµÈ
-#define TX_ADDR      0X10//·¢ËÍµØÖ· 39:0
-#define RX_PW_P0     0X11//½ÓÊÕÊı¾İÍ¨µÀ0ÓĞĞ§Êı¾İ¿í¶È(´Ó1µ½32×Ö½Ú)
-#define RX_PW_P1     0X12//½ÓÊÕÊı¾İÍ¨µÀ1ÓĞĞ§Êı¾İ¿í¶È(´Ó1µ½32×Ö½Ú)
-#define RX_PW_P2     0X13//½ÓÊÕÊı¾İÍ¨µÀ2ÓĞĞ§Êı¾İ¿í¶È(´Ó1µ½32×Ö½Ú)
-#define RX_PW_P3     0X14//½ÓÊÕÊı¾İÍ¨µÀ3ÓĞĞ§Êı¾İ¿í¶È(´Ó1µ½32×Ö½Ú)
-#define RX_PW_P4     0X15//½ÓÊÕÊı¾İÍ¨µÀ4ÓĞĞ§Êı¾İ¿í¶È(´Ó1µ½32×Ö½Ú)
-#define RX_PW_P5     0X16//½ÓÊÕÊı¾İÍ¨µÀ5ÓĞĞ§Êı¾İ¿í¶È(´Ó1µ½32×Ö½Ú)
-#define FIFO_STATUS  0X17//FIFO×´Ì¬¼Ä´æÆ÷ 0:RX FIFO¼Ä´æÆ÷¿Õ±êÖ¾ 1:RX FIFO¼Ä´æÆ÷Âú±êÖ¾ 4:TX FIFO¼Ä´æÆ÷¿Õ±êÖ¾
+/******* SI24R1å‘½ä»¤ *********/
+#define R_REGISTER   0x00  // è¯»é…ç½®å¯„å­˜å™¨
+#define W_REGISTER   0x20  // å†™é…ç½®å¯„å­˜å™¨
+#define R_RX_PAYLOAD 0x61  // è¯»RXæœ‰æ•ˆæ•°æ®
+#define W_RX_PAYLOAD 0xA0  // å†™TXæœ‰æ•ˆæ•°æ®
+#define FLUSH_TX     0xE1  // æ¸…é™¤TX FIFOå¯„å­˜å™¨ åº”ç”¨äºå‘å°„æ¨¡å¼
+#define FLUSH_RX     0xE2  // æ¸…é™¤RX FIFOå¯„å­˜å™¨ åº”ç”¨äºæ¥æ”¶æ¨¡å¼
+#define REUSE_TX_PL  0xE3  // é‡æ–°ä½¿ç”¨ä¸Šä¸€æ•°æ®åŒ…
+#define NOP          0xFF
 
+/******* SI24R1å¯„å­˜å™¨åœ°å€ *******/
+#define CONFIG       0x00  // bit0(PRIM_RX):1æ¥æ”¶æ¨¡å¼ 0å‘å°„æ¨¡å¼ bit1(pwr_up):1ä¸Šç”µ0æ‰ç”µ
+                           // bit2:CRCæ¨¡å¼ bit3:CRCä½¿èƒ½ bit4:å¯å±è”½ä¸­æ–­MAX_RT 
+                           // bit5:å¯å±è”½ä¸­æ–­TX_DS bit6:å¯å±è”½ä¸­æ–­RX_DR
+#define EN_AA        0x01  // ä½¿èƒ½0-5é€šé“çš„è‡ªåŠ¨åº”ç­”åŠŸèƒ½
+#define EN_RXADDR    0x02  // æ¥æ”¶åœ°å€å…è®¸ 0-5é€šé“ï¼Œé»˜è®¤é€šé“0é€šé“1å¯åŠ¨
+#define SETUP_AW     0x03  // è®¾ç½®åœ°å€å®½åº¦ 00:éæ³• 01:3å­—èŠ‚ 10:4å­—èŠ‚ 11:5å­—èŠ‚
+#define SETUP_RETR   0x04  // å»ºç«‹è‡ªåŠ¨é‡å‘ 3:0è‡ªåŠ¨é‡å‘è®¡æ•° 7:4è‡ªåŠ¨é‡å‘å»¶æ—¶
+#define RF_CH        0x05  // å°„é¢‘é€šé“ 6:0è®¾ç½®nRF24L01å·¥ä½œé¢‘ç‡
+#define RF_SETUP     0x06  // å°„é¢‘å¯„å­˜å™¨ 0:ä½å™ªå£°æ”¾å¤§å™¨å¢ç›Š 2:1å‘å°„åŠŸç‡ 3:ä¼ è¾“é€Ÿç‡
+#define STATUS       0x07  // çŠ¶æ€å¯„å­˜å™¨ 0:TX FIFOæ»¡æ ‡å¿— 3:1æ¥æ”¶æ•°æ®é€šé“å· 
+                           // 4:è¾¾åˆ°æœ€å¤§é‡å‘ä¸­æ–­ 5:æ•°æ®å‘é€å®Œæˆä¸­æ–­ 6:æ•°æ®æ¥æ”¶ä¸­æ–­
+#define MAX_TX       0x10  // æœ€å¤§é‡å‘æ¬¡æ•°
+#define TX_OK        0x20  // å‘é€å®Œæˆ
+#define RX_OK        0x40  // æ¥æ”¶å®Œæˆ
+#define RX_P_NO      0x0E  // æ¥æ”¶é€šé“å·æ©ç 
 
-//ÉèÖÃÒı½ÅµçÆ½
-#define SI24R1_CSN_LOW   GPIOB->BRR  |= GPIO_Pin_12
-#define SI24R1_CSN_HIGH  GPIOB->BSRR |= GPIO_Pin_12
-#define SI24R1_CE_LOW    GPIOA->BRR  |= GPIO_Pin_8
-#define SI24R1_CE_HIGH   GPIOA->BSRR |= GPIO_Pin_8
+#define OBSERVE_TX   0x08  // 3:0é‡å‘è®¡æ•°å™¨ 7:4æ•°æ®åŒ…ä¸¢å¤±è®¡æ•°å™¨
+#define CD           0x09  // è½½æ³¢æ£€æµ‹
+#define RX_ADDR_P0   0x0A  // æ•°æ®é€šé“0æ¥æ”¶åœ°å€ï¼Œæœ€å¤§é•¿åº¦5å­—èŠ‚
+#define RX_ADDR_P1   0x0B  // æ•°æ®é€šé“1æ¥æ”¶åœ°å€ï¼Œæœ€å¤§é•¿åº¦5å­—èŠ‚
+#define RX_ADDR_P2   0x0C  // æ•°æ®é€šé“2æ¥æ”¶åœ°å€
+#define RX_ADDR_P3   0x0D  // æ•°æ®é€šé“3æ¥æ”¶åœ°å€
+#define RX_ADDR_P4   0x0E  // æ•°æ®é€šé“4æ¥æ”¶åœ°å€
+#define RX_ADDR_P5   0x0F  // æ•°æ®é€šé“5æ¥æ”¶åœ°å€
+#define TX_ADDR      0x10  // å‘é€åœ°å€
+#define RX_PW_P0     0x11  // æ¥æ”¶æ•°æ®é€šé“0æœ‰æ•ˆæ•°æ®å®½åº¦(1-32å­—èŠ‚)
+#define RX_PW_P1     0x12  // æ¥æ”¶æ•°æ®é€šé“1æœ‰æ•ˆæ•°æ®å®½åº¦(1-32å­—èŠ‚)
+#define RX_PW_P2     0x13  // æ¥æ”¶æ•°æ®é€šé“2æœ‰æ•ˆæ•°æ®å®½åº¦(1-32å­—èŠ‚)
+#define RX_PW_P3     0x14  // æ¥æ”¶æ•°æ®é€šé“3æœ‰æ•ˆæ•°æ®å®½åº¦(1-32å­—èŠ‚)
+#define RX_PW_P4     0x15  // æ¥æ”¶æ•°æ®é€šé“4æœ‰æ•ˆæ•°æ®å®½åº¦(1-32å­—èŠ‚)
+#define RX_PW_P5     0x16  // æ¥æ”¶æ•°æ®é€šé“5æœ‰æ•ˆæ•°æ®å®½åº¦(1-32å­—èŠ‚)
+#define FIFO_STATUS  0x17  // FIFOçŠ¶æ€å¯„å­˜å™¨
 
-#define  RX_DR 6 //Êı¾İ½ÓÊÕÍê³ÉÖĞ¶Ï±êÖ¾Î»
-#define  TX_DR 5 //Êı¾İ·¢ËÍÍê³ÉÖĞ¶Ï±êÖ¾Î» (×´Ì¬¼Ä´æÆ÷Î»ÖÃ)
-#define  IT_TX 0x0E //·¢ËÍÄ£Ê½
-#define  IT_RX 0x0F //½ÓÊÕÄ£Ê½
+// SI24R1å¼•è„šå®šä¹‰ (ä¾¿äºç§»æ¤)
+#define SI24R1_CSN_PORT     GPIOB
+#define SI24R1_CSN_PIN      GPIO_PIN_12
+#define SI24R1_CE_PORT      GPIOA
+#define SI24R1_CE_PIN       GPIO_PIN_8
 
-#define TX_ADR_WIDTH 5
-#define RX_ADR_WIDTH 5
-#define TX_PAYLO_WIDTH 32
-#define RX_PAYLO_WIDTH 32
+// è®¾ç½®å¼•è„šç”µå¹³ (HALåº“æ–¹å¼)
+#define SI24R1_CSN_LOW      HAL_GPIO_WritePin(SI24R1_CSN_PORT, SI24R1_CSN_PIN, GPIO_PIN_RESET)
+#define SI24R1_CSN_HIGH     HAL_GPIO_WritePin(SI24R1_CSN_PORT, SI24R1_CSN_PIN, GPIO_PIN_SET)
+#define SI24R1_CE_LOW       HAL_GPIO_WritePin(SI24R1_CE_PORT, SI24R1_CE_PIN, GPIO_PIN_RESET)
+#define SI24R1_CE_HIGH      HAL_GPIO_WritePin(SI24R1_CE_PORT, SI24R1_CE_PIN, GPIO_PIN_SET)
 
+#define RX_DR            6  // æ•°æ®æ¥æ”¶å®Œæˆä¸­æ–­æ ‡å¿—ä½
+#define TX_DR            5  // æ•°æ®å‘é€å®Œæˆä¸­æ–­æ ‡å¿—ä½
+#define IT_TX            0x0E  // å‘é€æ¨¡å¼
+#define IT_RX            0x0F  // æ¥æ”¶æ¨¡å¼
+
+#define TX_ADR_WIDTH     5
+#define RX_ADR_WIDTH     5
+#define TX_PAYLO_WIDTH   32
+#define RX_PAYLO_WIDTH   32
+
+// å…¨å±€å˜é‡å£°æ˜
 extern uint8_t SI24R1_TX_DATA[TX_PAYLO_WIDTH];
-extern uint8_t SI24R1_RX_DATA[TX_PAYLO_WIDTH];
+extern uint8_t SI24R1_RX_DATA[RX_PAYLO_WIDTH];
+extern uint8_t SI24R1addr;
 
-void SI24R1_Init(void);		
+// å‡½æ•°å£°æ˜
+void SI24R1_Init(void);
 void SI24R1_Check(void);
 void SI24R1_Config(void);
 void SI24R1_GetAddr(void);
 void SI24R1set_Mode(uint8_t mode);
 uint8_t SI24R1_Write_Buf(uint8_t reg, uint8_t *pBuf, uint8_t len);
-uint8_t SI24R1_Read_Buf(uint8_t reg, uint8_t *pBuf, uint8_t len);			  
-uint8_t SI24R1_read_reg(uint8_t reg);					
-uint8_t SI24R1_write_reg(uint8_t reg, uint8_t value);		
-
-void SI24R1_TxPacket(uint8_t *txbuf);				
-void SI24R1_RxPacket(uint8_t *rxbuf);	
-void Remote_Connectiong(void);
-void SI24R1_GetAddr(void);
+uint8_t SI24R1_Read_Buf(uint8_t reg, uint8_t *pBuf, uint8_t len);
+uint8_t SI24R1_read_reg(uint8_t reg);
+uint8_t SI24R1_write_reg(uint8_t reg, uint8_t value);
+void SI24R1_TxPacket(uint8_t *txbuf);
+void SI24R1_RxPacket(uint8_t *rxbuf);
 void SI24R1_Test(void);
-
-
 uint8_t SI24R1_testConnection(void);
 
 #endif
-
-
