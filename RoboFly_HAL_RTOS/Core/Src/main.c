@@ -98,7 +98,11 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  //MPU6050_Init(); // Initialize MPU6050 sensor
+  //SI24R1_Init(); // Initialize SI24R1 module
+  //MOTOR_Init(); // Initialize motors
+  //PID_ReadFlash(); // Initialize battery monitoring
+  //PidParameter_init(); // PID参数初始化
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in cmsis_os2.c) */

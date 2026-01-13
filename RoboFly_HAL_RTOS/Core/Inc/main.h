@@ -39,6 +39,7 @@ extern "C" {
 #include "power.h"
 #include "si24r1.h"
 #include "spi.h"
+#include "spi_io.h"
 #include "usart.h"
 /* USER CODE END Includes */
 
