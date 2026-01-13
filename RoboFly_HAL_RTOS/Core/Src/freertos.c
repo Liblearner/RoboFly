@@ -45,22 +45,21 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
-/* USER CODE END Variables */
-osThreadId defaultTaskHandle;
 osThreadId controlTaskHandle;
 osThreadId commsTaskHandle;
 osThreadId statusTaskHandle;
+/* USER CODE END Variables */
+osThreadId defaultTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+void Task_Control(void const * argument);
+void Task_Comms(void const * argument);
+void StartDefaultTask(void const * argument);
 
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
-void Task_Control(void const *argument);
-void Task_Comms(void const *argument);
-void Task_Status(void const *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -108,8 +107,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  // osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  // defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   osThreadDef(controlTask, Task_Control, osPriorityHigh, 0, 512);
