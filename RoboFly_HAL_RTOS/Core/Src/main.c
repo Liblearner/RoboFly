@@ -27,7 +27,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "mpu6050.h"
+#include "si24r1.h"
+#include "fbm320.h"
+#include "pid.h"
+#include "paramsave.h"
+#include "led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -98,11 +103,14 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  //MPU6050_Init(); // Initialize MPU6050 sensor
-  //SI24R1_Init(); // Initialize SI24R1 module
-  //MOTOR_Init(); // Initialize motors
-  //PID_ReadFlash(); // Initialize battery monitoring
-  //PidParameter_init(); // PID参数初始化
+  SI24R1_Init(); // Initialize SI24R1 module(红)
+  MPU6050_Init(); // Initialize MPU6050 sensor（绿）
+  // FBM320_Init(); //FBM320初始化(气压计蓝)
+  PID_ReadFlash(); // Initialize battery monitoring
+  PidParameter_init(); // PID参数初始化
+  //	Kalman_Init();
+  RGB_LED_OFF(); // Turn off RGB LED
+
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in cmsis_os2.c) */

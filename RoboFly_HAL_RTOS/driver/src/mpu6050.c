@@ -10,7 +10,7 @@
 * 版权所有：西安天际智联信息技术有限公司
 *******************************************************************************************/
 #include "stm32f1xx_hal.h"
-#include "MPU6050.h"
+#include "mpu6050.h"
 #include "iic.h"
 //#include "delay.h"
 #include "usart.h"
