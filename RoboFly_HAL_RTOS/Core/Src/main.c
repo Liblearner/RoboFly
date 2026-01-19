@@ -109,7 +109,7 @@ int main(void)
   PID_ReadFlash(); // Initialize battery monitoring
   PidParameter_init(); // PID参数初始化
   //	Kalman_Init();
-  RGB_LED_OFF(); // Turn off RGB LED
+  RGB_LED_Off(); // Turn off RGB LED
 
   /* USER CODE END 2 */
 
@@ -126,7 +126,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+    HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

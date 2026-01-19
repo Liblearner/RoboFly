@@ -25,6 +25,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "led.h"
+#include "power.h"
+#include "si24r1.h"
+#include "adc.h"
+#include "control.h"
+#include "imu.h"
+#include "remotedata.h"
+#include "paramsave.h"
+#include "structconfig.h"
+#include "ANO_DT.h"
 
 /* USER CODE END Includes */
 
@@ -55,6 +65,7 @@ osThreadId defaultTaskHandle;
 /* USER CODE BEGIN FunctionPrototypes */
 void Task_Control(void const * argument);
 void Task_Comms(void const * argument);
+void Task_Status(void const * argument);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE END FunctionPrototypes */
@@ -107,8 +118,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  // osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  // defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   osThreadDef(controlTask, Task_Control, osPriorityHigh, 0, 512);
@@ -145,42 +156,53 @@ void StartDefaultTask(void const * argument)
 /* USER CODE BEGIN Application */
 void Task_Control(void const *argument)
 {
-  /* USER CODE BEGIN Task_Control */
-  /* Infinite loop */
   for(;;)
   {
-    // Control logic here
-
+    Prepare_Data();												 // 获取姿态解算所需数据
+		IMUupdate(&Gyr_rad, &Acc_filt, &Att_Angle);					 // 四元数姿态解算
+		Control(&Att_Angle, &Gyr_rad, &RC_Control, Airplane_Enable); // 姿态控制
     osDelay(10);
   }
-  /* USER CODE END Task_Control */
 }
 
-
+/*
+遥控器与上位机通信
+*/
 void Task_Comms(void const * argument)
 {
-  /* USER CODE BEGIN Task_Comms */
-  /* Infinite loop */
   for(;;)
   {
-    // Communication logic here
-
+    SI24R1_SingalCheck(); // 2.4G通信检测
+		SendToRemote();		  // 发送数据给遥控器
+    ANO_DT_Data_Exchange(); // 更新数据到上位机
     osDelay(20);
   }
-  /* USER CODE END Task_Comms */
 }
 
+/*
+遥控器状态监测
+电压状态监测
+LED状态显示
+*/
 void Task_Status(void const * argument)
 {
-  /* USER CODE BEGIN Task_Status */
-  /* Infinite loop */
   for(;;)
   {
-    // Status monitoring logic here
-
+    //Batt read
+    // LowVoltage_Alarm();	//低电量报警
+    //LED blink
+    SI24R1_GetAddr();
+    LED_Run();
+    if(!Airplane_Enable && Run_flag)
+    {
+      RGB_LED_Runing(); // 飞机上锁状态灯
+    }
+    BATT_Alarm_LED(); // 电池低电压报警
     osDelay(100);
   }
-  /* USER CODE END Task_Status */
 }
+
+
+
 /* USER CODE END Application */
 

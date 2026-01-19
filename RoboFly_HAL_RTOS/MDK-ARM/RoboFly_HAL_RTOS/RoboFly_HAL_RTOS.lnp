@@ -54,6 +54,8 @@
 "robofly_hal_rtos\remotedata.o"
 "robofly_hal_rtos\imu.o"
 "robofly_hal_rtos\control.o"
+"robofly_hal_rtos\ano_dt.o"
+"robofly_hal_rtos\altitude.o"
 --strict --scatter "RoboFly_HAL_RTOS\RoboFly_HAL_RTOS.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
